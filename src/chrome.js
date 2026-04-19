@@ -1,5 +1,20 @@
 import { pageHref } from './paths.js';
 
+/** Dati comuni — aggiorna qui orari e testi se cambiano in negozio. */
+const siteInfo = {
+  addressLine: 'Via Piazzano, 66 — 66041 Atessa (CH), Abruzzo',
+  mobile: '+39 333 290 9839',
+  mobileHref: 'tel:+393332909839',
+  whatsappHref: 'https://wa.me/393332909839',
+  mapsHref: 'https://www.google.com/maps?q=Via+Piazzano,+66+Atessa+CH',
+  hoursIntro: 'Orari di apertura al pubblico (indicativi — confermare per festività).',
+  hours: [
+    { label: 'Lunedì – venerdì', value: '9:00 – 19:00' },
+    { label: 'Sabato', value: '9:00 – 13:00' },
+    { label: 'Domenica e festivi', value: 'Chiuso' },
+  ],
+};
+
 function applyFavicon() {
   const link = document.querySelector('link[rel="icon"]');
   if (link) link.href = `${import.meta.env.BASE_URL}favicon.svg`;
@@ -14,6 +29,34 @@ const ICONS = {
     '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="8" r="3.5"/><path d="M5.5 20.5v-1a6.5 6.5 0 0 1 13 0v1"/></svg>',
 };
 
+function footerHtml() {
+  const hoursRows = siteInfo.hours.map((h) => `<dt>${h.label}</dt><dd>${h.value}</dd>`).join('');
+  return `
+    <div class="section__inner site-footer__main">
+      <div class="site-footer__grid">
+        <div class="site-footer__block">
+          <p class="site-footer__kicker">Contatti</p>
+          <p class="site-footer__brand">OfficinaePhone</p>
+          <p class="site-footer__addr">${siteInfo.addressLine}</p>
+          <ul class="site-footer__contacts">
+            <li><a href="${siteInfo.mobileHref}">Mobile ${siteInfo.mobile}</a></li>
+            <li><a href="${siteInfo.whatsappHref}" rel="noopener noreferrer" target="_blank">WhatsApp</a></li>
+            <li><a href="${pageHref('contatti.html')}">Pagina contatti e mappa</a></li>
+            <li><a href="${siteInfo.mapsHref}" rel="noopener noreferrer" target="_blank">Google Maps</a></li>
+          </ul>
+        </div>
+        <div class="site-footer__block">
+          <p class="site-footer__kicker">Orari</p>
+          <p class="site-footer__hours-intro">${siteInfo.hoursIntro}</p>
+          <dl class="site-footer__hours">${hoursRows}</dl>
+        </div>
+      </div>
+      <div class="site-footer__legal">
+        <p>© <span id="year"></span> OfficinaePhone. Tutti i diritti riservati.</p>
+      </div>
+    </div>`;
+}
+
 /**
  * @param {'home' | 'servizi' | 'usati' | 'contatti'} active
  */
@@ -21,6 +64,7 @@ export function mountChrome(active) {
   applyFavicon();
   const header = document.getElementById('site-header');
   const bottom = document.getElementById('bottom-nav');
+  const footer = document.getElementById('site-footer');
   if (!header || !bottom) return;
 
   const navLink = (id, label, href, iconKey) => {
@@ -57,6 +101,7 @@ export function mountChrome(active) {
       </a>
     </div>`;
 
+  if (footer) footer.innerHTML = footerHtml();
 }
 
 export function setYear() {

@@ -52,8 +52,9 @@
     display: none;
   }
 
+  /* Lo spazio sotto la bottom bar è gestito dal padding del footer. */
   body {
-    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
 }
 
@@ -201,11 +202,111 @@
 }
 
 .site-footer {
-  padding: 2rem 1.25rem 1rem;
-  color: var(--color-muted);
+  margin-top: 2rem;
+  padding: 2.5rem 1.25rem calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  background: color-mix(in srgb, var(--color-text) 92%, transparent);
+  color: color-mix(in srgb, var(--color-bg) 88%, white);
   font-size: 0.9rem;
 }
 
-.site-footer__inner {
+@media (min-width: 769px) {
+  .site-footer {
+    padding-bottom: 2rem;
+  }
+}
+
+.site-footer a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.site-footer a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.site-footer__main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.site-footer__kicker {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-bg) 55%, white);
+}
+
+.site-footer__brand {
+  margin: 0 0 0.35rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.site-footer__addr {
+  margin: 0 0 1rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-bg) 70%, white);
+}
+
+.site-footer__contacts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.site-footer__hours-intro {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: color-mix(in srgb, var(--color-bg) 65%, white);
+}
+
+.site-footer__hours {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.35rem 1.25rem;
+  align-items: baseline;
+  max-width: 22rem;
+}
+
+.site-footer__hours dt {
+  margin: 0;
+  font-weight: 600;
+  color: color-mix(in srgb, var(--color-bg) 75%, white);
+}
+
+.site-footer__hours dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+}
+
+.site-footer__legal {
+  padding-top: 1.5rem;
+  border-top: 1px solid color-mix(in srgb, white 18%, transparent);
   text-align: center;
+  font-size: 0.82rem;
+  color: color-mix(in srgb, var(--color-bg) 55%, white);
+}
+
+.site-footer__legal p {
+  margin: 0;
 }
