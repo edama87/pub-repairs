@@ -113,7 +113,7 @@ function footerHtml() {
         </div>
       </div>
       <div class="site-footer__legal">
-        <p>© <span id="year"></span> OfficinaePhone. Tutti i diritti riservati.</p>
+        <p>© 2021 - <span id="year"></span> OfficinaePhone.it. Tutti i diritti riservati.</p>
       </div>
     </div>`;
 }
