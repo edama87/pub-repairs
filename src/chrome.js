@@ -31,12 +31,15 @@ const ICONS = {
 
 function footerHtml() {
   const hoursRows = siteInfo.hours.map((h) => `<dt>${h.label}</dt><dd>${h.value}</dd>`).join('');
+  const logoFooterSrc = `${baseUrl}images/logo/logosusfondiscurixweb.png`;
   return `
     <div class="section__inner site-footer__main">
       <div class="site-footer__grid">
         <div class="site-footer__block">
           <p class="site-footer__kicker">Contatti</p>
-          <p class="site-footer__brand">OfficinaePhone</p>
+          <a class="site-footer__logo-link" href="${pageHref('index.html')}" aria-label="OfficinaePhone — Home">
+            <img class="site-footer__logo" src="${logoFooterSrc}" alt="OfficinaePhone" width="320" height="64" decoding="async" />
+          </a>
           <p class="site-footer__addr">${siteInfo.addressLine}</p>
           <ul class="site-footer__contacts">
             <li><a href="${siteInfo.mobileHref}">Mobile ${siteInfo.mobile}</a></li>
