@@ -1,4 +1,4 @@
-import { pageHref } from './paths.js';
+import { baseUrl, pageHref } from './paths.js';
 
 /** Dati comuni — aggiorna qui orari e testi se cambiano in negozio. */
 const siteInfo = {
@@ -67,6 +67,7 @@ export function mountChrome(active) {
   const footer = document.getElementById('site-footer');
   if (!header || !bottom) return;
 
+  const logoSrc = `${baseUrl}images/logo/logo.png`;
   const navLink = (id, label, href, iconKey) => {
     const isActive = active === id;
     return `<a href="${href}" class="bottom-nav__item${isActive ? ' bottom-nav__item--active' : ''}" data-section="${id}"${isActive ? ' aria-current="page"' : ''}>
@@ -77,7 +78,9 @@ export function mountChrome(active) {
 
   header.innerHTML = `
     <div class="site-header__inner">
-      <a class="site-logo" href="${pageHref('index.html')}">Officinae<span>Phone</span></a>
+      <a class="site-logo" href="${pageHref('index.html')}" aria-label="OfficinaePhone — Home">
+        <img class="site-logo__img" src="${logoSrc}" alt="OfficinaePhone" width="320" height="64" decoding="async" />
+      </a>
       <nav class="site-header__nav" aria-label="Navigazione principale">
         <a href="${pageHref('index.html')}"${active === 'home' ? ' aria-current="page"' : ''}>Home</a>
         <a href="${pageHref('servizi.html')}"${active === 'servizi' ? ' aria-current="page"' : ''}>Servizi</a>

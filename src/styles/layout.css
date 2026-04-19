@@ -18,15 +18,18 @@
 }
 
 .site-logo {
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  font-size: 1.15rem;
-  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   text-decoration: none;
+  min-width: 0;
 }
 
-.site-logo span {
-  color: var(--accent);
+.site-logo__img {
+  display: block;
+  height: 34px;
+  width: auto;
+  max-width: min(320px, 58vw);
 }
 
 .site-header__nav {
