@@ -1,11 +1,7 @@
-# Pubblica la cartella dist/ su GitHub Pages tramite Actions (artifact → Pages).
+# Pubblica dist/ su GitHub Pages (artifact → deploy-pages).
 #
-# IMPORTANTE — se il sito carica /src/main.js (404):
-#   In quel caso GitHub sta servendo l’index.html del repo (sorgente Vite), NON la build.
-#   Vai su: Repo → Settings → Pages → Build and deployment → Source
-#   e scegli SOLO "GitHub Actions" (disattiva "Deploy from a branch" / cartella / o /root).
-#   La prima volta può servire l’approvazione dell’ambiente "github-pages"
-#   (Settings → Environments → github-pages).
+# Se il sito mostra ancora /src/main.js: controlla in Actions che questa workflow
+# finisca in verde; in caso di conflitti con altre run, vedi concurrency sotto.
 
 name: Deploy GitHub Pages
 
@@ -19,15 +15,22 @@ permissions:
   pages: write
   id-token: write
 
+# NON usare group "github-pages" né cancel su deploy in corso: il workflow
+# interno "pages build and deployment" condivide meccanismi simili; annullare
+# una run può far pubblicare un artifact vecchio / fallback non corretto.
+# Allineato al template statico ufficiale GitHub (cancel-in-progress: false).
 concurrency:
-  group: github-pages
-  cancel-in-progress: true
+  group: pages-vite-officinaephone
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
 
       - uses: actions/setup-node@v4
         with:
@@ -53,9 +56,11 @@ jobs:
             echo '::error file=dist/index.html::Manca lo script bundled con prefisso base /pub-repairs/.'
             exit 1
           fi
+          echo "Anteprima head dist/index.html:"
+          head -n 22 dist/index.html
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: dist
 
@@ -68,4 +73,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
