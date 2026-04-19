@@ -45,19 +45,19 @@ jobs:
         env:
           VITE_GH_PAGES: '1'
 
-      - name: Verifica output build (non deve restare entry dev /src/main.js)
+      - name: Verifica output build (nessun entry dev /src/*.js negli HTML)
         run: |
           set -euo pipefail
-          if grep -qE '/src/main\.js|"./src/main\.js"' dist/index.html; then
-            echo '::error file=dist/index.html::La build non ha trasformato il punto di ingresso (attesi /pub-repairs/assets/*.js).'
-            exit 1
-          fi
-          if ! grep -qE '/pub-repairs/assets/[^"]+\.js' dist/index.html; then
-            echo '::error file=dist/index.html::Manca lo script bundled con prefisso base /pub-repairs/.'
-            exit 1
-          fi
-          echo "Anteprima head dist/index.html:"
-          head -n 22 dist/index.html
+          for f in dist/*.html; do
+            if grep -qE '/src/[a-zA-Z0-9_-]+\.js|"./src/[a-zA-Z0-9_-]+\.js"' "$f"; then
+              echo "::error file=$f::Punto di ingresso dev non trasformato dalla build."
+              exit 1
+            fi
+            if ! grep -qE '/pub-repairs/assets/[^"]+\.js' "$f"; then
+              echo "::error file=$f::Manca script bundled con base /pub-repairs/."
+              exit 1
+            fi
+          done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4

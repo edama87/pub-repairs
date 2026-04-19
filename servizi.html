@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Listino riparazioni iPhone e iPad OfficinaePhone — Atessa, Abruzzo. Prezzi da listino Aprile 2026."
+    />
+    <meta property="og:title" content="Servizi e listino — OfficinaePhone" />
+    <meta name="theme-color" content="#f97316" />
+    <title>Servizi e listino — OfficinaePhone</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Vai al contenuto</a>
+
+    <header class="site-header" role="banner" id="site-header"></header>
+
+    <main id="main">
+      <section class="section section--muted" aria-labelledby="servizi-title">
+        <div class="section__inner">
+          <h1 id="servizi-title" class="section-title">Servizi e listino</h1>
+          <p class="section-intro">
+            Scegli il tipo di dispositivo e il modello per consultare i prezzi del
+            <strong>Listino Aprile 2026</strong> (PDF in laboratorio).
+          </p>
+
+          <div class="device-picker">
+            <div>
+              <label for="device-category">Dispositivo</label>
+              <select id="device-category" name="category">
+                <option value="iphone-recent">iPhone — modelli recenti</option>
+                <option value="iphone-legacy">iPhone — modelli precedenti</option>
+                <option value="ipad">iPad</option>
+                <option value="altri">Altri dispositivi</option>
+              </select>
+            </div>
+            <div id="iphone-model-wrap">
+              <label for="device-model">Modello</label>
+              <select id="device-model" name="model"></select>
+            </div>
+          </div>
+
+          <div id="iphone-table-panel">
+            <div class="price-table-wrap">
+              <table class="price-table" aria-describedby="listino-note">
+                <thead>
+                  <tr>
+                    <th scope="col">Intervento</th>
+                    <th scope="col">Prezzo</th>
+                  </tr>
+                </thead>
+                <tbody id="price-tbody"></tbody>
+              </table>
+            </div>
+            <p id="iphone-recent-footnote" class="listino-footnote" hidden>
+              Sul PDF: nota «Solo su ordinazione» per alcune lavorazioni o ricambi.
+            </p>
+          </div>
+
+          <div id="ipad-panel" hidden>
+            <div id="ipad-blocks" class="ipad-blocks"></div>
+          </div>
+
+          <div id="altri-panel" hidden>
+            <h2 class="section-title section-title--small">Altri dispositivi</h2>
+            <div id="altri-body" class="section-intro"></div>
+          </div>
+
+          <p id="listino-note" class="listino-footnote"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="section__inner site-footer__inner">
+        <p>© <span id="year"></span> OfficinaePhone. Tutti i diritti riservati.</p>
+      </div>
+    </footer>
+
+    <nav class="bottom-nav" id="bottom-nav" aria-label="Navigazione mobile"></nav>
+
+    <script type="module" src="./src/servizi.js"></script>
+  </body>
+</html>
