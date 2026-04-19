@@ -1,5 +1,11 @@
-# Pubblica la cartella dist/ su GitHub Pages (branch / ambiente gh-pages via Actions).
-# Primo setup nel repo GitHub: Settings → Pages → Source → "GitHub Actions".
+# Pubblica la cartella dist/ su GitHub Pages tramite Actions (artifact → Pages).
+#
+# IMPORTANTE — se il sito carica /src/main.js (404):
+#   In quel caso GitHub sta servendo l’index.html del repo (sorgente Vite), NON la build.
+#   Vai su: Repo → Settings → Pages → Build and deployment → Source
+#   e scegli SOLO "GitHub Actions" (disattiva "Deploy from a branch" / cartella / o /root).
+#   La prima volta può servire l’approvazione dell’ambiente "github-pages"
+#   (Settings → Environments → github-pages).
 
 name: Deploy GitHub Pages
 
@@ -35,6 +41,18 @@ jobs:
         run: npm run build:gh-pages
         env:
           VITE_GH_PAGES: '1'
+
+      - name: Verifica output build (non deve restare entry dev /src/main.js)
+        run: |
+          set -euo pipefail
+          if grep -qE '/src/main\.js|"./src/main\.js"' dist/index.html; then
+            echo '::error file=dist/index.html::La build non ha trasformato il punto di ingresso (attesi /pub-repairs/assets/*.js).'
+            exit 1
+          fi
+          if ! grep -qE '/pub-repairs/assets/[^"]+\.js' dist/index.html; then
+            echo '::error file=dist/index.html::Manca lo script bundled con prefisso base /pub-repairs/.'
+            exit 1
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
