@@ -1,6 +1,7 @@
 import './styles/base.css';
 import './styles/layout.css';
 import './styles/components.css';
+import './styles/bokeh.css';
 import './styles/servizi.css';
 
 import { mountChrome, setYear } from './chrome.js';

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" role="none">
+  <defs>
+    <filter id="bokehBlur" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="42" result="blur" />
+      <feColorMatrix
+        in="blur"
+        type="matrix"
+        values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.92 0"
+        result="soft"
+      />
+    </filter>
+    <radialGradient id="glowWarm" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fb923c" stop-opacity="0.95" />
+      <stop offset="55%" stop-color="#ea580c" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#ea580c" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowSoft" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fef3c7" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="#fdba74" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#fdba74" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowDeep" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c2410c" stop-opacity="0.55" />
+      <stop offset="70%" stop-color="#9a3412" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#7c2d12" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+  <rect width="1440" height="900" fill="#faf7f2" />
+  <g filter="url(#bokehBlur)">
+    <circle cx="180" cy="220" r="110" fill="url(#glowDeep)" />
+    <circle cx="420" cy="140" r="95" fill="url(#glowWarm)" opacity="0.85" />
+    <circle cx="1180" cy="180" r="130" fill="url(#glowWarm)" opacity="0.7" />
+    <circle cx="980" cy="320" r="85" fill="url(#glowSoft)" />
+    <circle cx="720" cy="480" r="160" fill="url(#glowDeep)" opacity="0.65" />
+    <circle cx="200" cy="620" r="100" fill="url(#glowSoft)" opacity="0.8" />
+    <circle cx="1320" cy="640" r="140" fill="url(#glowWarm)" opacity="0.55" />
+    <circle cx="520" cy="760" r="90" fill="url(#glowDeep)" opacity="0.5" />
+    <circle cx="1080" cy="780" r="70" fill="#fed7aa" opacity="0.45" />
+  </g>
+  <g opacity="0.35" filter="url(#bokehBlur)">
+    <circle cx="640" cy="200" r="28" fill="#fff7ed" />
+    <circle cx="900" cy="520" r="22" fill="#ffedd5" />
+    <circle cx="300" cy="400" r="18" fill="#fffbeb" />
+    <circle cx="1240" cy="420" r="20" fill="#fff7ed" />
+  </g>
+</svg>

@@ -25,7 +25,27 @@
     <header class="site-header" role="banner" id="site-header"></header>
 
     <main id="main">
-      <section class="section section--hero" aria-labelledby="home-title">
+      <section class="section section--hero hero-with-bokeh" aria-labelledby="home-title">
+        <div class="hero-with-bokeh__layers" aria-hidden="true">
+          <div class="hero-with-bokeh__glow"></div>
+          <div class="hero-with-bokeh__image-wrap">
+            <img
+              src="./images/hero/bokeh-backdrop.svg"
+              alt=""
+              width="1440"
+              height="900"
+              decoding="async"
+              fetchpriority="high"
+            />
+          </div>
+          <div class="hero-with-bokeh__dissolve"></div>
+          <div class="hero-with-bokeh__dissolve--bottom"></div>
+          <div class="hero-with-bokeh__blobs">
+            <span class="hero-with-bokeh__blob"></span>
+            <span class="hero-with-bokeh__blob"></span>
+            <span class="hero-with-bokeh__blob"></span>
+          </div>
+        </div>
         <div class="section__inner">
           <p class="eyebrow">Laboratorio · Atessa (CH), Abruzzo</p>
           <h1 id="home-title">Riparazioni rapide e di qualità</h1>

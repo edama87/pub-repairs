@@ -1,0 +1,210 @@
+/* Sfondo bokeh + dissolvenza (maschera radiale / gradiente). Immagine: public/images/hero/bokeh-backdrop.svg */
+
+.hero-with-bokeh {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+.hero-with-bokeh__layers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-with-bokeh__glow {
+  position: absolute;
+  inset: -20% -10% -25%;
+  background:
+    radial-gradient(ellipse 55% 45% at 78% 28%, color-mix(in srgb, var(--accent) 22%, transparent) 0%, transparent 62%),
+    radial-gradient(ellipse 40% 35% at 12% 72%, color-mix(in srgb, var(--accent) 12%, transparent) 0%, transparent 55%);
+  opacity: 0.9;
+}
+
+.hero-with-bokeh__image-wrap {
+  position: absolute;
+  inset: -8% -6% -12%;
+  opacity: 0.88;
+  -webkit-mask-image: radial-gradient(
+    ellipse 85% 70% at 72% 32%,
+    #000 0%,
+    #000 42%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(ellipse 85% 70% at 72% 32%, #000 0%, #000 42%, transparent 78%);
+}
+
+.hero-with-bokeh__image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.04);
+  filter: saturate(1.08) blur(0.5px);
+}
+
+.hero-with-bokeh__dissolve {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    var(--color-bg) 0%,
+    color-mix(in srgb, var(--color-bg) 88%, transparent) 38%,
+    transparent 58%
+  );
+}
+
+.hero-with-bokeh__dissolve--bottom {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 52%, var(--color-bg) 100%);
+  opacity: 0.95;
+}
+
+.hero-with-bokeh__blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-with-bokeh__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(36px);
+  opacity: 0.28;
+  mix-blend-mode: multiply;
+  animation: bokeh-float 22s ease-in-out infinite;
+}
+
+.hero-with-bokeh__blob:nth-child(1) {
+  width: min(42vw, 380px);
+  height: min(42vw, 380px);
+  background: color-mix(in srgb, var(--accent) 55%, #fef3c7);
+  top: 8%;
+  right: 6%;
+  animation-delay: 0s;
+}
+
+.hero-with-bokeh__blob:nth-child(2) {
+  width: min(28vw, 260px);
+  height: min(28vw, 260px);
+  background: color-mix(in srgb, var(--accent) 35%, white);
+  bottom: 18%;
+  right: 22%;
+  animation-delay: -7s;
+  animation-duration: 26s;
+}
+
+.hero-with-bokeh__blob:nth-child(3) {
+  width: min(22vw, 200px);
+  height: min(22vw, 200px);
+  background: #fed7aa;
+  top: 38%;
+  right: 14%;
+  animation-delay: -12s;
+  animation-duration: 19s;
+  opacity: 0.2;
+}
+
+@keyframes bokeh-float {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(-2%, 1.5%) scale(1.04);
+  }
+  66% {
+    transform: translate(1.5%, -1%) scale(0.97);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-with-bokeh__blob {
+    animation: none;
+  }
+}
+
+.hero-with-bokeh .section__inner {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .hero-with-bokeh__image-wrap {
+    -webkit-mask-image: radial-gradient(
+      ellipse 120% 55% at 50% 18%,
+      #000 0%,
+      #000 35%,
+      transparent 72%
+    );
+    mask-image: radial-gradient(ellipse 120% 55% at 50% 18%, #000 0%, #000 35%, transparent 72%);
+    opacity: 0.72;
+  }
+
+  .hero-with-bokeh__dissolve {
+    background: linear-gradient(to bottom, var(--color-bg) 0%, color-mix(in srgb, var(--color-bg) 70%, transparent) 42%, transparent 68%);
+  }
+}
+
+/* Striscia decorativa in testa alle pagine interne */
+.section--bokeh-head {
+  position: relative;
+  overflow: hidden;
+}
+
+.bokeh-strip {
+  position: relative;
+  height: clamp(5.5rem, 18vw, 9rem);
+  margin: calc(-1 * var(--space-section)) -1.25rem var(--space-section);
+  pointer-events: none;
+}
+
+.section--muted .bokeh-strip {
+  margin-top: calc(-1 * var(--space-section) + 0.5rem);
+}
+
+.bokeh-strip__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 40%;
+  opacity: 0.55;
+  transform: scale(1.06);
+  filter: saturate(1.05) blur(0.3px);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 92%);
+  mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 92%);
+}
+
+.bokeh-strip__fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    var(--color-bg) 0%,
+    transparent 28%,
+    transparent 72%,
+    var(--color-bg) 100%
+  );
+  opacity: 0.85;
+}
+
+.section--muted .bokeh-strip__fade {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--color-bg) 55%, var(--color-surface)) 0%,
+    transparent 30%,
+    transparent 70%,
+    color-mix(in srgb, var(--color-bg) 55%, var(--color-surface)) 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bokeh-strip__img {
+    transform: none;
+  }
+}
