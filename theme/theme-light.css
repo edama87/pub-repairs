@@ -1,61 +1,63 @@
 /**
- * Design system — tema light (token CSS).
- * @see docs/DESIGN_THEME_LIGHT.md
- * Applicare su `html` con `data-theme="light"` (impostato da theme/theme.js).
+ * Tema light — direzione “Google Labs / Stitch” (superfici fredde, blu product, elevation soft).
+ * Il progetto Stitch non è leggibile via URL pubblico: allineamento qualitativo, non export 1:1.
+ * @see docs/DESIGN_THEME_LIGHT.md (valori storici atelier possono divergere)
  */
 
 html[data-theme="light"] {
-  /* —— Superfici —— */
-  --ds-surface: #ebebea;
-  --ds-surface-container-lowest: #e3e3e0;
-  --ds-surface-container: #f4f4f2;
-  --ds-surface-container-high: #fafaf8;
-  --ds-surface-container-highest: #ffffff;
-  --ds-surface-dim: #dcdcda;
-  --ds-surface-bright: #eef2ff;
-  --ds-surface-variant: #9ca3af;
+  /* Tipografia (caricate in pagina) */
+  --ds-font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --ds-font-body: Inter, system-ui, sans-serif;
 
-  /* —— Contenuto su superficie —— */
-  --ds-on-surface: #171717;
-  --ds-on-surface-variant: #52525b;
+  /* Superfici — neutri freddi, alto contrasto leggibile */
+  --ds-surface: #f3f6fc;
+  --ds-surface-container-lowest: #e8eef9;
+  --ds-surface-container: #e1e8f5;
+  --ds-surface-container-high: #f8fafc;
+  --ds-surface-container-highest: #ffffff;
+  --ds-surface-dim: #d7e0f4;
+  --ds-surface-bright: #d3e3fd;
+  --ds-surface-variant: #94a3b8;
+
+  --ds-on-surface: #1f1f1f;
+  --ds-on-surface-variant: #5f6368;
   --ds-on-primary: #ffffff;
 
-  /* —— Brand —— */
-  --ds-primary: #1d4ed8;
-  --ds-primary-container: #3b82f6;
-  --ds-primary-fixed-dim: #64748b;
+  /* Brand — blu Material / Google product */
+  --ds-primary: #0b57d0;
+  --ds-primary-container: #3b7ddd;
+  --ds-primary-fixed-dim: #5f6368;
 
-  /* Gradiente primary (135deg) — uso in background-image */
+  /* Pulsanti: gradiente molto leggero (stile “filled” moderno) */
   --ds-gradient-primary: linear-gradient(
-    135deg,
-    var(--ds-primary) 0%,
-    var(--ds-primary-container) 100%
+    180deg,
+    #1b6cf0 0%,
+    var(--ds-primary) 48%,
+    #084298 100%
   );
 
-  /* Outline / ghost (RGB per rgba in utility) */
-  --ds-outline-variant-rgb: 107, 114, 128;
-  --ds-ghost-border: rgba(var(--ds-outline-variant-rgb), 0.12);
-  --ds-ghost-border-strong: rgba(var(--ds-outline-variant-rgb), 0.18);
+  --ds-outline-variant-rgb: 95, 99, 104;
+  --ds-ghost-border: rgba(var(--ds-outline-variant-rgb), 0.14);
+  --ds-ghost-border-strong: rgba(var(--ds-outline-variant-rgb), 0.22);
 
-  /* Glass */
-  --ds-glass-overlay: rgba(156, 163, 175, 0.55);
-  --ds-glass-chip: rgba(156, 163, 175, 0.35);
-  --ds-blur-overlay: 24px;
-  --ds-blur-md: 12px;
+  /* Chip / pill: tinta chiara, poco blur (più “app” che “vetro atelier”) */
+  --ds-glass-overlay: rgba(255, 255, 255, 0.92);
+  --ds-glass-chip: rgba(11, 87, 208, 0.08);
+  --ds-blur-overlay: 12px;
+  --ds-blur-md: 8px;
 
-  /* Ombra ambient (float / modal) */
-  --ds-shadow-ambient: 0 8px 40px rgba(100, 116, 139, 0.12);
-  --ds-shadow-tint-rgb: 100, 116, 139;
+  /* Ombre tipo elevation Material (soft, poco “bloom”) */
+  --ds-shadow-ambient: 0 1px 2px rgba(60, 64, 67, 0.28), 0 1px 3px 1px rgba(60, 64, 67, 0.12);
+  --ds-shadow-card-hover: 0 2px 6px 2px rgba(60, 64, 67, 0.18), 0 1px 2px rgba(60, 64, 67, 0.24);
+  --ds-shadow-tint-rgb: 11, 87, 208;
 
-  /* Raggio (allineati a DESIGN_CORE) */
   --ds-radius-sm: 0.5rem;
-  --ds-radius-md: 1.5rem;
-  --ds-radius-lg: 2rem;
+  --ds-radius-md: 1rem;
+  --ds-radius-lg: 1.25rem;
   --ds-radius-full: 9999px;
 
-  /* Transizioni */
   --ds-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
-  --ds-duration: 200ms;
+  --ds-duration: 180ms;
 
   color-scheme: light;
 }
@@ -63,6 +65,7 @@ html[data-theme="light"] {
 html[data-theme="light"] body {
   background-color: var(--ds-surface);
   color: var(--ds-on-surface);
+  font-family: var(--ds-font-body);
 }
 
 @media (prefers-reduced-motion: reduce) {
