@@ -1,0 +1,74 @@
+/**
+ * Design system — tema light (token CSS).
+ * @see docs/DESIGN_THEME_LIGHT.md
+ * Applicare su `html` con `data-theme="light"` (impostato da theme/theme.js).
+ */
+
+html[data-theme="light"] {
+  /* —— Superfici —— */
+  --ds-surface: #ebebea;
+  --ds-surface-container-lowest: #e3e3e0;
+  --ds-surface-container: #f4f4f2;
+  --ds-surface-container-high: #fafaf8;
+  --ds-surface-container-highest: #ffffff;
+  --ds-surface-dim: #dcdcda;
+  --ds-surface-bright: #eef2ff;
+  --ds-surface-variant: #9ca3af;
+
+  /* —— Contenuto su superficie —— */
+  --ds-on-surface: #171717;
+  --ds-on-surface-variant: #52525b;
+  --ds-on-primary: #ffffff;
+
+  /* —— Brand —— */
+  --ds-primary: #1d4ed8;
+  --ds-primary-container: #3b82f6;
+  --ds-primary-fixed-dim: #64748b;
+
+  /* Gradiente primary (135deg) — uso in background-image */
+  --ds-gradient-primary: linear-gradient(
+    135deg,
+    var(--ds-primary) 0%,
+    var(--ds-primary-container) 100%
+  );
+
+  /* Outline / ghost (RGB per rgba in utility) */
+  --ds-outline-variant-rgb: 107, 114, 128;
+  --ds-ghost-border: rgba(var(--ds-outline-variant-rgb), 0.12);
+  --ds-ghost-border-strong: rgba(var(--ds-outline-variant-rgb), 0.18);
+
+  /* Glass */
+  --ds-glass-overlay: rgba(156, 163, 175, 0.55);
+  --ds-glass-chip: rgba(156, 163, 175, 0.35);
+  --ds-blur-overlay: 24px;
+  --ds-blur-md: 12px;
+
+  /* Ombra ambient (float / modal) */
+  --ds-shadow-ambient: 0 8px 40px rgba(100, 116, 139, 0.12);
+  --ds-shadow-tint-rgb: 100, 116, 139;
+
+  /* Raggio (allineati a DESIGN_CORE) */
+  --ds-radius-sm: 0.5rem;
+  --ds-radius-md: 1.5rem;
+  --ds-radius-lg: 2rem;
+  --ds-radius-full: 9999px;
+
+  /* Transizioni */
+  --ds-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ds-duration: 200ms;
+
+  color-scheme: light;
+}
+
+html[data-theme="light"] body {
+  background-color: var(--ds-surface);
+  color: var(--ds-on-surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] {
+    --ds-blur-overlay: 0px;
+    --ds-blur-md: 0px;
+    --ds-duration: 0.01ms;
+  }
+}

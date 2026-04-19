@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Atelier — riparazioni premium (demo design system)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../theme/theme-light.css" />
+    <link rel="stylesheet" href="site.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a class="logo" href="#">Atelier<span>.</span></a>
+        <nav class="nav" aria-label="Principale">
+          <a href="#servizi">Servizi</a>
+          <a href="#processo">Processo</a>
+          <a href="#listino">Listino</a>
+          <a href="#contatti">Contatti</a>
+        </nav>
+        <a class="btn-primary" href="#contatti">Prenota</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__grid">
+          <div>
+            <p class="hero__kicker">Riparazioni · Milano</p>
+            <h1 id="hero-title">Restauri da flagship, non da banco.</h1>
+            <p class="hero__lead">
+              Laboratorio dedicato a display, batterie e diagnostica: tempi chiari,
+              pezzi tracciati e finiture che rispettano il tuo dispositivo.
+            </p>
+            <div class="hero__actions">
+              <a class="btn-primary" href="#contatti">Chiedi disponibilità</a>
+              <a class="btn-secondary" href="#listino">Vedi listino</a>
+            </div>
+          </div>
+          <div class="hero__visual" aria-hidden="true">
+            <div class="hero__card">
+              <div class="hero__card-inner">
+                <span class="hero__glass">Stato: in diagnostica</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="servizi" class="section section--low" aria-labelledby="servizi-title">
+        <div class="section__inner">
+          <p class="section__kicker">Servizi</p>
+          <h2 id="servizi-title" class="section__title">Cosa ripariamo</h2>
+          <p class="section__lead">
+            Ogni intervento passa da controllo visivo e test funzionale: niente
+            “pezza e via”.
+          </p>
+          <div class="cards">
+            <article class="card-block">
+              <div class="icon" aria-hidden="true">◫</div>
+              <h3>Display & vetro</h3>
+              <p>OEM dove disponibile, calibrazione touch e controllo frame.</p>
+            </article>
+            <article class="card-block">
+              <div class="icon" aria-hidden="true">⌁</div>
+              <h3>Batterie</h3>
+              <p>Cicli certificati, adhesive clean e report salute al rientro.</p>
+            </article>
+            <article class="card-block">
+              <div class="icon" aria-hidden="true">◎</div>
+              <h3>Diagnostica</h3>
+              <p>Short test, audio, fotocamere e connettività con verbale.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="processo" class="section section--mid" aria-labelledby="processo-title">
+        <div class="section__inner">
+          <p class="section__kicker">Processo</p>
+          <h2 id="processo-title" class="section__title">Come lavoriamo</h2>
+          <p class="section__lead">
+            Tre passaggi, zero sorprese: prendi appuntamento, lascia il device,
+            ritira con garanzia su intervento.
+          </p>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">01</div>
+              <h3>Accettazione</h3>
+              <p>Foto stato, IMEI e firma digitale sul preventivo approvato.</p>
+            </div>
+            <div class="step">
+              <div class="step-num">02</div>
+              <h3>Intervento</h3>
+              <p>Banco ESD, strumenti dedicati e log passo-passo.</p>
+            </div>
+            <div class="step">
+              <div class="step-num">03</div>
+              <h3>Consegna</h3>
+              <p>Test in tua presenza, cleaning e sacchetto antistatico.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="listino" class="section section--base" aria-labelledby="listino-title">
+        <div class="section__inner">
+          <p class="section__kicker">Listino</p>
+          <h2 id="listino-title" class="section__title">A partire da</h2>
+          <p class="section__lead">
+            Valori indicativi IVA inclusa; il preventivo definitivo dopo diagnostica.
+          </p>
+          <div class="price-list">
+            <div class="price-row">
+              <div>
+                <span class="price-row__name">Display flagship</span>
+                <span class="price-row__meta">Apple / Samsung recenti</span>
+              </div>
+              <span class="price-row__price">da 189 €</span>
+            </div>
+            <div class="price-row">
+              <div>
+                <span class="price-row__name">Batteria OEM-grade</span>
+                <span class="price-row__meta">con calibrazione BMS dove serve</span>
+              </div>
+              <span class="price-row__price">da 79 €</span>
+            </div>
+            <div class="price-row">
+              <div>
+                <span class="price-row__name">Diagnostica completa</span>
+                <span class="price-row__meta">verbale + stima riparazione</span>
+              </div>
+              <span class="price-row__price">49 €</span>
+            </div>
+          </div>
+          <div class="chips" aria-label="Stato ordine esempio">
+            <span class="chip">In coda</span>
+            <span class="chip">Ricambi ordinati</span>
+            <span class="chip">Pronto al ritiro</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--low" aria-labelledby="cta-title">
+        <div class="section__inner">
+          <div class="cta">
+            <div>
+              <h2 id="cta-title">Vuoi un check rapido?</h2>
+              <p>Scrivi modello e sintomo: ti rispondiamo con fascia oraria e tempi.</p>
+            </div>
+            <a class="btn-primary" href="#contatti">Scrivici</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contatti" class="section section--mid" aria-labelledby="contatti-title">
+        <div class="section__inner">
+          <p class="section__kicker">Contatti</p>
+          <h2 id="contatti-title" class="section__title">Prenota slot</h2>
+          <p class="section__lead">
+            Form demo (nessun invio): campi con ghost border e focus primary come da
+            specifica.
+          </p>
+          <form class="form-grid" action="#" method="get" onsubmit="return false;">
+            <div class="field">
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Nome e cognome" />
+            </div>
+            <div class="field">
+              <label for="device">Dispositivo</label>
+              <input id="device" name="device" type="text" placeholder="es. iPhone 15 Pro" />
+            </div>
+            <div class="field">
+              <label for="msg">Messaggio</label>
+              <textarea id="msg" name="msg" placeholder="Descrivi il problema…"></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Invia (demo)</button>
+          </form>
+          <p class="theme-note">
+            Tema attivo: <strong id="theme-label">light</strong> ·
+            <code>theme/theme-light.css</code> +
+            <code>theme/theme.js</code>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div>
+          <p class="footer-brand">Atelier.</p>
+          <p class="footer-copy">
+            Demo statica per il design system “Precision Atelier”. Contenuti fittizi.
+          </p>
+        </div>
+        <div>
+          <h4>Orari</h4>
+          <ul>
+            <li><a href="#">Lun–Ven 9:30–19:00</a></li>
+            <li><a href="#">Sab su appuntamento</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Legale</h4>
+          <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Garanzia</a></li>
+          </ul>
+        </div>
+        <p class="footer-bottom">
+          Apri da server locale: <code>python3 -m http.server</code> nella cartella
+          <code>new-design</code>, poi <code>/examples/index.html</code>
+        </p>
+      </div>
+    </footer>
+
+    <script src="../theme/theme.js"></script>
+    <script>
+      DSTheme.init();
+      document.getElementById("theme-label").textContent = DSTheme.getTheme();
+    </script>
+  </body>
+</html>
