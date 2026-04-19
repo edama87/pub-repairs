@@ -42,7 +42,6 @@
   object-fit: cover;
   display: block;
   transform: scale(1.22);
-  filter: grayscale(0.15) saturate(0.9) contrast(0.92) brightness(1.02) blur(28px);
 }
 
 .hero-with-bokeh__dissolve {
@@ -188,7 +187,6 @@
   object-position: 50% 40%;
   opacity: 0.28;
   transform: scale(1.06);
-  filter: grayscale(0.15) saturate(0.92) contrast(0.92) brightness(1.04) blur(26px);
   -webkit-mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 92%);
   mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 92%);
 }
