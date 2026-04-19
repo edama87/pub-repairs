@@ -34,6 +34,12 @@ a:hover {
   box-shadow: var(--ds-shadow-ambient);
 }
 
+html[data-theme="dark"] .site-header {
+  background: color-mix(in srgb, var(--ds-surface) 72%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
 .site-header__inner {
   max-width: 72rem;
   margin: 0 auto;
@@ -63,6 +69,27 @@ a:hover {
   letter-spacing: -0.03em;
   color: var(--ds-on-surface);
   text-decoration: none;
+}
+
+.theme-toggle {
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--ds-radius-full);
+  border: 1px solid var(--ds-ghost-border);
+  background: transparent;
+  color: var(--ds-on-surface-variant);
+  cursor: pointer;
+  transition: color var(--ds-duration) var(--ds-ease-standard),
+    background-color var(--ds-duration) var(--ds-ease-standard),
+    border-color var(--ds-duration) var(--ds-ease-standard);
+}
+
+.theme-toggle:hover {
+  color: var(--ds-primary);
+  background: color-mix(in srgb, var(--ds-primary) 12%, transparent);
+  border-color: color-mix(in srgb, var(--ds-primary) 35%, transparent);
 }
 
 .logo span {
@@ -98,7 +125,7 @@ a:hover {
 }
 
 .section--low {
-  background: var(--ds-surface-container-lowest);
+  background: var(--ds-surface-container-low);
 }
 
 .section--mid {
@@ -259,7 +286,7 @@ a:hover {
   color: var(--ds-on-primary);
   border: none;
   padding: 0.8rem 1.6rem;
-  border-radius: var(--ds-radius-full);
+  border-radius: var(--ds-radius-xl, 1.5rem);
   background-image: var(--ds-gradient-primary);
   box-shadow: var(--ds-shadow-ambient);
   cursor: pointer;
@@ -281,17 +308,19 @@ a:hover {
   font-family: inherit;
   font-weight: 600;
   font-size: 0.9375rem;
-  color: var(--ds-on-surface);
-  background: transparent;
-  border: 1px solid var(--ds-ghost-border-strong);
+  color: var(--ds-primary);
+  background: var(--ds-surface-container-highest);
+  border: none;
   padding: 0.8rem 1.6rem;
-  border-radius: var(--ds-radius-full);
+  border-radius: var(--ds-radius-xl, 1.5rem);
   cursor: pointer;
-  transition: background-color var(--ds-duration) var(--ds-ease-standard);
+  transition: background-color var(--ds-duration) var(--ds-ease-standard),
+    filter var(--ds-duration) var(--ds-ease-standard);
 }
 
 .btn-secondary:hover {
   background: var(--ds-surface-bright);
+  filter: brightness(1.08);
 }
 
 .btn-secondary:focus-visible {
@@ -651,19 +680,26 @@ a:hover {
   font-weight: 600;
   padding: 0.4rem 0.85rem;
   border-radius: var(--ds-radius-full);
-  background: var(--ds-glass-chip);
+  background: var(--ds-chip-bg);
+  color: var(--ds-chip-color);
   border: 1px solid transparent;
-  color: var(--ds-on-surface);
 }
 
 a.chip {
-  color: var(--ds-on-surface);
   text-decoration: none;
   transition: color var(--ds-duration) var(--ds-ease-standard),
-    background-color var(--ds-duration) var(--ds-ease-standard);
+    background-color var(--ds-duration) var(--ds-ease-standard),
+    filter var(--ds-duration) var(--ds-ease-standard);
 }
 
 a.chip:hover {
-  color: var(--ds-primary);
-  background: color-mix(in srgb, var(--ds-glass-chip) 100%, var(--ds-surface-bright));
+  filter: brightness(1.12);
+}
+
+/* Hero — blob colore primario (blu in chiaro, verde Stitch in scuro) */
+html[data-theme="dark"] .hero__card-inner {
+  background:
+    radial-gradient(circle at 85% 18%, rgba(79, 240, 127, 0.2), transparent 44%),
+    radial-gradient(circle at 12% 78%, rgba(37, 211, 102, 0.12), transparent 48%),
+    linear-gradient(165deg, var(--ds-surface-container-highest) 0%, var(--ds-surface-container-high) 100%);
 }

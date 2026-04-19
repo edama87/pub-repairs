@@ -1,11 +1,13 @@
 /**
- * Inizializzazione tema — modalità light.
- * Imposta `data-theme="light"` su <html> e opzionalmente persiste in localStorage.
- * @see docs/DESIGN_THEME_LIGHT.md
+ * Tema sito: light (Material-ish) o dark (Stitch · Modern Phone Repair Website).
+ * Default: dark per allineamento al progetto MCP Stitch.
  */
 (function (global) {
   const STORAGE_KEY = "ds-theme";
   const THEME_LIGHT = "light";
+  const THEME_DARK = "dark";
+  const VALID = new Set([THEME_LIGHT, THEME_DARK]);
+  const DEFAULT_THEME = THEME_DARK;
 
   function getStored() {
     try {
@@ -19,51 +21,67 @@
     try {
       global.localStorage?.setItem(STORAGE_KEY, value);
     } catch {
-      /* private mode / denied */
+      /* private mode */
     }
   }
 
   /**
-   * Applica il tema light al documento.
-   * @param {{ persist?: boolean }} [options] persist default true
-   */
-  function applyLight(options = {}) {
-    const persist = options.persist !== false;
-    const root = global.document?.documentElement;
-    if (!root) return THEME_LIGHT;
-
-    root.dataset.theme = THEME_LIGHT;
-    if (persist) setStored(THEME_LIGHT);
-    return THEME_LIGHT;
-  }
-
-  /**
-   * Legge il tema corrente (sempre "light" in questa base).
-   * @returns {"light"}
-   */
-  function getTheme() {
-    const t = global.document?.documentElement?.dataset?.theme;
-    return t === THEME_LIGHT ? THEME_LIGHT : THEME_LIGHT;
-  }
-
-  /**
+   * @param {"light" | "dark"} theme
    * @param {{ persist?: boolean }} [options]
    */
+  function applyTheme(theme, options = {}) {
+    const persist = options.persist !== false;
+    const root = global.document?.documentElement;
+    if (!root) return DEFAULT_THEME;
+
+    const next = VALID.has(theme) ? theme : DEFAULT_THEME;
+    root.dataset.theme = next;
+    if (persist) setStored(next);
+    return next;
+  }
+
+  function applyLight(options) {
+    return applyTheme(THEME_LIGHT, options);
+  }
+
+  function applyDark(options) {
+    return applyTheme(THEME_DARK, options);
+  }
+
+  function getTheme() {
+    const t = global.document?.documentElement?.dataset?.theme;
+    return VALID.has(t) ? t : DEFAULT_THEME;
+  }
+
+  /**
+   * @param {{ persist?: boolean; defaultTheme?: "light" | "dark" }} [options]
+   */
   function init(options = {}) {
+    const fallback = options.defaultTheme || DEFAULT_THEME;
     const stored = getStored();
-    if (stored === THEME_LIGHT) {
-      applyLight({ persist: false });
+    if (stored === THEME_LIGHT || stored === THEME_DARK) {
+      applyTheme(stored, { persist: false });
       return;
     }
-    applyLight(options);
+    applyTheme(fallback, options);
+  }
+
+  /** Commuta light ↔ dark e persiste. */
+  function toggle() {
+    const next = getTheme() === THEME_DARK ? THEME_LIGHT : THEME_DARK;
+    return applyTheme(next);
   }
 
   const DSTheme = {
     STORAGE_KEY,
     THEME_LIGHT,
+    THEME_DARK,
     init,
+    applyTheme,
     applyLight,
+    applyDark,
     getTheme,
+    toggle,
   };
 
   global.DSTheme = DSTheme;

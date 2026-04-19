@@ -12,6 +12,7 @@ html[data-theme="light"] {
   /* Superfici — neutri freddi, alto contrasto leggibile */
   --ds-surface: #f3f6fc;
   --ds-surface-container-lowest: #e8eef9;
+  --ds-surface-container-low: #ecf0fa;
   --ds-surface-container: #e1e8f5;
   --ds-surface-container-high: #f8fafc;
   --ds-surface-container-highest: #ffffff;
@@ -54,7 +55,11 @@ html[data-theme="light"] {
   --ds-radius-sm: 0.5rem;
   --ds-radius-md: 1rem;
   --ds-radius-lg: 1.25rem;
+  --ds-radius-xl: 1.5rem;
   --ds-radius-full: 9999px;
+
+  --ds-chip-bg: rgba(11, 87, 208, 0.1);
+  --ds-chip-color: var(--ds-on-surface);
 
   --ds-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --ds-duration: 180ms;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" data-theme="light">
+<html lang="it" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,15 +7,16 @@
       name="description"
       content="Riparazioni smartphone: display, batterie, connettori, fotocamere. Listino prezzi indicativo IVA inclusa. Diagnostica e preventivo prima dell’intervento."
     />
-    <meta name="theme-color" content="#0b57d0" />
+    <meta id="meta-theme-color" name="theme-color" content="#131313" />
     <title>pub repairs — riparazioni smartphone e listino</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../theme/theme-light.css" />
+    <link rel="stylesheet" href="../theme/theme-dark.css" />
     <link rel="stylesheet" href="site.css" />
   </head>
   <body>
@@ -28,6 +29,9 @@
           <a href="#listino">Listino</a>
           <a href="#contatti">Contatti</a>
         </nav>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Passa al tema chiaro">
+          Tema chiaro
+        </button>
         <a class="btn-primary" href="#contatti">Preventivo</a>
       </div>
     </header>
@@ -387,8 +391,8 @@
             <button type="submit" class="btn-primary">Invia richiesta</button>
           </form>
           <p class="theme-note">
-            Tema: <strong id="theme-label">light</strong> ·
-            <a href="https://github.com/edama87/pub-repairs">Sorgente su GitHub</a>
+            Tema: <strong id="theme-label">dark</strong> (token da Stitch «Modern Phone Repair» via MCP) ·
+            <a href="https://github.com/edama87/pub-repairs">GitHub</a>
           </p>
         </div>
       </section>
@@ -427,9 +431,40 @@
 
     <script src="../theme/theme.js"></script>
     <script>
-      DSTheme.init();
-      document.getElementById("theme-label").textContent = DSTheme.getTheme();
-      document.getElementById("year").textContent = new Date().getFullYear();
+      (function () {
+        const meta = document.getElementById("meta-theme-color");
+        const label = document.getElementById("theme-label");
+        const btn = document.getElementById("theme-toggle");
+
+        function syncChrome() {
+          if (meta)
+            meta.content = DSTheme.getTheme() === "dark" ? "#131313" : "#0b57d0";
+        }
+
+        function syncToggle() {
+          if (!btn) return;
+          const dark = DSTheme.getTheme() === "dark";
+          btn.textContent = dark ? "Tema chiaro" : "Tema scuro";
+          btn.setAttribute(
+            "aria-label",
+            dark ? "Passa al tema chiaro" : "Passa al tema scuro"
+          );
+        }
+
+        DSTheme.init();
+        if (label) label.textContent = DSTheme.getTheme();
+        syncToggle();
+        syncChrome();
+
+        btn?.addEventListener("click", function () {
+          DSTheme.toggle();
+          if (label) label.textContent = DSTheme.getTheme();
+          syncToggle();
+          syncChrome();
+        });
+
+        document.getElementById("year").textContent = new Date().getFullYear();
+      })();
     </script>
   </body>
 </html>
