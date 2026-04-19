@@ -17,7 +17,9 @@ const siteInfo = {
 
 function applyFavicon() {
   const link = document.querySelector('link[rel="icon"]');
-  if (link) link.href = `${import.meta.env.BASE_URL}favicon.svg`;
+  if (!link) return;
+  link.href = `${baseUrl}cropped-favbicon-192x192.png`;
+  link.type = 'image/png';
 }
 
 const ICONS = {
