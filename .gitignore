@@ -1,4 +1,9 @@
 .DS_Store
+node_modules/
+dist/
+
+# Compound Engineering -- preferenze locali (non committare)
+.compound-engineering/*.local.yaml
 
 # Listini / materiali locali (non pubblicare su GitHub senza esplicita scelta)
 data/

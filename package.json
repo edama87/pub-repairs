@@ -1,0 +1,17 @@
+{
+  "name": "officinaephone-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:gh-pages": "VITE_GH_PAGES=1 vite build",
+    "preview": "vite preview",
+    "preview:gh-pages": "VITE_GH_PAGES=1 vite build && VITE_GH_PAGES=1 vite preview",
+    "verify": "bash scripts/check-before-push.sh"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}
