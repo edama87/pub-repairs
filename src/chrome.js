@@ -2,6 +2,21 @@ import { baseUrl, pageHref } from './paths.js';
 
 const ADDRESS_LINES = ['Via Piazzano, 66', '66041 Atessa (CH)', 'Abruzzo, Italia'];
 
+/** Costruisce l’URL embed classico da un link Google Maps (`query` o `q`). */
+function mapsHrefToEmbedSrc(href) {
+  if (!href) return '';
+  try {
+    const u = new URL(href);
+    const raw = u.searchParams.get('query') ?? u.searchParams.get('q');
+    if (raw) {
+      return `https://maps.google.com/maps?q=${encodeURIComponent(raw)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+    }
+  } catch {
+    /* href non è un URL valido */
+  }
+  return `https://maps.google.com/maps?q=${encodeURIComponent(href)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+}
+
 /** Dati comuni — aggiorna qui orari e testi se cambiano in negozio. */
 const siteInfo = {
   /** Una riga (footer, meta). */
@@ -14,9 +29,10 @@ const siteInfo = {
   landlineHref: 'tel:+390872703236',
   whatsappHref: 'https://wa.me/393332909839',
   mapsHref: 'https://www.google.com/maps/search/?api=1&query=Officinaephone%20-%20riparazione%20smartphone%2C%20tablet%2C%20PC%20e%20MAC%20Atessa',
-  /** Mappa embed (Google Maps). */
-  mapsEmbedSrc:
-    'https://maps.google.com/maps?q=Via+Piazzano%2C+66%2C+Atessa+CH&t=&z=15&ie=UTF8&iwloc=&output=embed',
+  /** Iframe mappa: derivato da `mapsHref` (stessa ricerca / luogo). */
+  get mapsEmbedSrc() {
+    return mapsHrefToEmbedSrc(this.mapsHref);
+  },
   hoursIntro: 'Orari di apertura al pubblico',
   hours: [
     { label: 'Lunedì – venerdì', value: '9:00 – 19:00' },
