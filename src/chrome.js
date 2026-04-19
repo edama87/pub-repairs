@@ -91,15 +91,13 @@ function footerHtml() {
   const logoFooterSrc = `${baseUrl}images/logo/logosusfondiscurixweb.png`;
   return `
     <div class="section__inner site-footer__main">
-      <div class="site-footer__brand">
-        <a class="site-footer__logo-link" href="${pageHref('index.html')}" aria-label="OfficinaePhone — Home">
-          <img class="site-footer__logo" src="${logoFooterSrc}" alt="OfficinaePhone" width="320" height="64" decoding="async" />
-        </a>
-        <p class="site-footer__addr">${siteInfo.addressLine}</p>
-      </div>
       <div class="site-footer__grid">
-        <div class="site-footer__block">
+        <div class="site-footer__block site-footer__block--primary">
           <p class="site-footer__kicker">Contatti</p>
+          <a class="site-footer__logo-link" href="${pageHref('index.html')}" aria-label="OfficinaePhone — Home">
+            <img class="site-footer__logo" src="${logoFooterSrc}" alt="OfficinaePhone" width="320" height="64" decoding="async" />
+          </a>
+          <p class="site-footer__addr">${siteInfo.addressLine}</p>
           <ul class="site-footer__contacts">
             <li><a href="${siteInfo.mobileHref}">Mobile ${siteInfo.mobile}</a></li>
             <li><a href="${siteInfo.whatsappHref}" rel="noopener noreferrer" target="_blank">WhatsApp</a></li>
@@ -108,7 +106,7 @@ function footerHtml() {
           </ul>
           ${socialBlock}
         </div>
-        <div class="site-footer__block">
+        <div class="site-footer__block site-footer__block--hours">
           <p class="site-footer__kicker">Orari</p>
           <p class="site-footer__hours-intro">${siteInfo.hoursIntro}</p>
           <dl class="site-footer__hours">${hoursRows}</dl>
