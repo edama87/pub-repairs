@@ -6,14 +6,13 @@ const siteInfo = {
   mobile: '+39 333 290 9839',
   mobileHref: 'tel:+393332909839',
   whatsappHref: 'https://wa.me/393332909839',
-  mapsHref: 'https://www.google.com/maps?q=Via+Piazzano,+66+Atessa+CH',
-  hoursIntro: 'Orari di apertura al pubblico (indicativi — confermare per festività).',
+  mapsHref: 'https://www.google.com/maps/search/?api=1&query=Officinaephone%20-%20riparazione%20smartphone%2C%20tablet%2C%20PC%20e%20MAC%20Atessa',
+  hoursIntro: 'Orari di apertura al pubblico',
   hours: [
     { label: 'Lunedì – venerdì', value: '9:00 – 19:00' },
     { label: 'Sabato', value: '9:00 – 13:00' },
     { label: 'Domenica e festivi', value: 'Chiuso' },
   ],
-  /** Link social (stesso schema del sito temporaneo tooltestai.it). */
   social: [
     { label: 'Facebook', href: 'https://www.facebook.com/officinaephone' },
     { label: 'Instagram', href: 'https://www.instagram.com/officinaephone' },
