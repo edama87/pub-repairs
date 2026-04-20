@@ -1,7 +1,48 @@
-.listino-search {
-  margin-bottom: 1.25rem;
+/* Pagina listino — layout e componenti */
+
+.section__inner--listino {
+  max-width: min(var(--maxw), 920px);
 }
 
+/* Toolbar: ricerca + filtri in un blocco unico */
+.listino-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--color-surface) 92%, var(--accent)) 0%,
+    var(--color-surface) 48%,
+    var(--color-surface) 100%
+  );
+  border: 1px solid color-mix(in srgb, var(--color-border) 70%, var(--accent) 12%);
+  box-shadow:
+    var(--shadow-soft),
+    0 0 0 1px color-mix(in srgb, white 80%, transparent) inset;
+}
+
+@media (min-width: 880px) {
+  .listino-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem 2rem;
+    align-items: start;
+    padding: 1.5rem 1.65rem;
+  }
+}
+
+.listino-toolbar .listino-search {
+  margin-bottom: 0;
+}
+
+.listino-toolbar__filters .device-picker {
+  margin-bottom: 0;
+}
+
+/* Ricerca */
 .listino-search__label {
   font-weight: 700;
   font-size: 0.85rem;
@@ -15,18 +56,31 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   align-items: stretch;
+  padding: 0.2rem;
+  margin: -0.2rem;
+  border-radius: 14px;
+  transition: box-shadow 0.2s ease;
+}
+
+.listino-search__row:focus-within {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
 .listino-search__row input[type='search'] {
   flex: 1 1 12rem;
   min-width: 0;
-  max-width: 420px;
-  padding: 0.65rem 0.85rem;
+  max-width: none;
+  padding: 0.7rem 1rem;
   border-radius: 12px;
   border: 1px solid var(--color-border);
   font-size: 1rem;
   font-family: inherit;
   background: var(--color-surface);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text) 6%, transparent);
+}
+
+.listino-search__row input[type='search']::placeholder {
+  color: color-mix(in srgb, var(--color-muted) 75%, var(--color-border));
 }
 
 .listino-search__row .btn {
@@ -35,17 +89,31 @@
 }
 
 .listino-search__status {
-  margin: 0.5rem 0 0;
+  margin: 0.55rem 0 0;
   font-size: 0.85rem;
   color: var(--color-muted);
   min-height: 1.25em;
+  line-height: 1.4;
 }
 
+/* Filtri dispositivo */
 .device-picker {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 520px) {
+  .device-picker {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem 1.25rem;
+  }
+
+  .device-picker__field {
+    flex: 1 1 200px;
+    min-width: 0;
+  }
 }
 
 .device-picker label {
@@ -58,17 +126,65 @@
 
 .device-picker select {
   width: 100%;
-  max-width: 420px;
-  padding: 0.65rem 0.85rem;
+  max-width: none;
+  padding: 0.7rem 1rem;
   border-radius: 12px;
   border: 1px solid var(--color-border);
   font-size: 1rem;
   font-family: inherit;
   background: var(--color-surface);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--color-text) 5%, transparent);
+  cursor: pointer;
 }
 
+.device-picker select:hover {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--color-border));
+}
+
+/* Pannelli risultati */
+.listino-panel {
+  margin-bottom: 1.75rem;
+}
+
+.listino-panel__head {
+  margin-bottom: 1rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 85%, var(--accent) 8%);
+}
+
+.listino-panel__title {
+  margin: 0;
+  font-size: clamp(1.1rem, 2.5vw, 1.28rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.listino-panel__sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
+.listino-panel--altri .listino-altri-body {
+  margin: 0;
+  padding: 1.15rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-soft);
+  color: var(--color-muted);
+  line-height: 1.55;
+}
+
+.listino-panel--altri .listino-altri-body p {
+  margin: 0;
+}
+
+/* Tabella prezzi iPhone */
 .price-table-wrap {
-  overflow-x: auto;
+  overflow: hidden;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
   background: var(--color-surface);
@@ -83,35 +199,84 @@
 
 .price-table th,
 .price-table td {
-  padding: 0.75rem 1rem;
+  padding: 0.85rem 1.1rem;
   text-align: left;
   border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
 }
 
-.price-table th {
-  background: color-mix(in srgb, var(--color-bg) 70%, var(--color-surface));
-  font-size: 0.8rem;
+.price-table thead th {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-bg) 55%, var(--color-surface)) 0%,
+    color-mix(in srgb, var(--color-bg) 35%, var(--color-surface)) 100%
+  );
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   color: var(--color-muted);
+  font-weight: 800;
 }
 
-.price-table tr:last-child td {
+.price-table__th-price {
+  text-align: right;
+  width: 28%;
+}
+
+.price-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+.price-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--color-bg) 42%, var(--color-surface));
+}
+
+.price-table tbody tr:hover {
+  background: color-mix(in srgb, var(--accent) 9%, var(--color-surface));
+}
+
+.price-table tbody tr:last-child td {
   border-bottom: 0;
+}
+
+.price-table td:last-child {
+  text-align: right;
 }
 
 .price-cell {
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  color: color-mix(in srgb, var(--color-text) 88%, var(--accent));
 }
 
+/* Note e disclaimer */
 .listino-footnote {
   margin-top: 1rem;
   font-size: 0.85rem;
   color: var(--color-muted);
+  line-height: 1.5;
 }
 
+.listino-footnote--inline {
+  margin-top: 0.85rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--color-bg) 65%, var(--color-surface));
+  border: 1px dashed color-mix(in srgb, var(--color-border) 80%, var(--accent) 15%);
+}
+
+.listino-disclaimer {
+  margin-top: 2rem;
+  padding: 1rem 1.15rem 1.05rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-surface) 88%, var(--color-bg));
+  border-left: 4px solid color-mix(in srgb, var(--accent) 50%, var(--color-border));
+  box-shadow: 0 6px 24px color-mix(in srgb, var(--color-text) 5%, transparent);
+}
+
+/* Blocchi iPad */
 .ipad-blocks {
   display: flex;
   flex-direction: column;
@@ -119,22 +284,50 @@
 }
 
 .ipad-block {
+  position: relative;
+  margin: 0;
   background: var(--color-surface);
   border-radius: var(--radius-md);
-  padding: 1rem 1.2rem;
+  padding: 1.15rem 1.25rem 1.2rem;
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-soft);
+  border-left: 4px solid color-mix(in srgb, var(--accent) 45%, var(--color-border));
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+@media (hover: hover) {
+  .ipad-block:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 14px 36px color-mix(in srgb, var(--color-text) 10%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ipad-block {
+    transition: none;
+  }
+
+  .ipad-block:hover {
+    transform: none;
+  }
 }
 
 .ipad-block__title {
   margin: 0 0 0.35rem;
-  font-size: 1.05rem;
+  font-size: 1.06rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .ipad-block__nota {
   margin: 0 0 0.75rem;
   font-size: 0.85rem;
   color: var(--color-muted);
+  line-height: 1.45;
 }
 
 .ipad-block__list {
@@ -144,23 +337,27 @@
 .ipad-block__row {
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   gap: 1rem;
-  padding: 0.45rem 0;
-  border-bottom: 1px dashed var(--color-border);
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed color-mix(in srgb, var(--color-border) 92%, var(--accent) 8%);
 }
 
 .ipad-block__row:last-child {
   border-bottom: 0;
+  padding-bottom: 0;
 }
 
 .ipad-block__row dt {
   margin: 0;
   font-weight: 600;
   max-width: 65%;
+  line-height: 1.4;
 }
 
 .ipad-block__row dd {
   margin: 0;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
+  color: color-mix(in srgb, var(--color-text) 88%, var(--accent));
 }

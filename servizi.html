@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Listino riparazioni iPhone e iPad OfficinaePhone — Atessa, Abruzzo. Prezzi da listino Aprile 2026."
+      content="Listino riparazioni iPhone e iPad OfficinaePhone — Atessa, Abruzzo. Prezzi da listino."
     />
     <meta property="og:title" content="Servizi e listino — OfficinaePhone" />
-    <meta name="theme-color" content="#f97316" />
+    <meta name="theme-color" content="#167cf9" />
     <title>Servizi e listino — OfficinaePhone</title>
   </head>
   <body>
@@ -30,68 +30,87 @@
           />
           <div class="bokeh-strip__fade"></div>
         </div>
-        <div class="section__inner">
+        <div class="section__inner section__inner--listino">
+          <p class="eyebrow">Listino laboratorio</p>
           <h1 id="servizi-title" class="section-title">Servizi e listino</h1>
           <p class="section-intro">
             Scegli il tipo di dispositivo e il modello per consultare i prezzi del
             <strong>Listino Aprile 2026</strong>.
           </p>
 
-          <form class="listino-search" id="listino-search-form" role="search" aria-label="Cerca nel listino">
-            <label class="listino-search__label" for="listino-search-input">Cerca nel listino</label>
-            <div class="listino-search__row">
-              <input
-                type="search"
-                id="listino-search-input"
-                name="q"
-                autocomplete="off"
-                placeholder="Es. 15 Pro, Air, batteria…"
-              />
-              <button type="submit" class="btn btn--primary btn--small">Cerca</button>
-            </div>
-            <p id="listino-search-status" class="listino-search__status" role="status" aria-live="polite"></p>
-          </form>
+          <div class="listino-toolbar">
+            <form class="listino-search" id="listino-search-form" role="search" aria-label="Cerca nel listino">
+              <label class="listino-search__label" for="listino-search-input">Cerca nel listino</label>
+              <div class="listino-search__row">
+                <input
+                  type="search"
+                  id="listino-search-input"
+                  name="q"
+                  autocomplete="off"
+                  placeholder="Es. 15 Pro, Air, batteria…"
+                />
+                <button type="submit" class="btn btn--primary btn--small">Cerca</button>
+              </div>
+              <p id="listino-search-status" class="listino-search__status" role="status" aria-live="polite"></p>
+            </form>
 
-          <div class="device-picker">
-            <div>
-              <label for="device-category">Dispositivo</label>
-              <select id="device-category" name="category">
-                <option value="iphone-recent">iPhone — modelli recenti</option>
-                <option value="iphone-legacy">iPhone — modelli precedenti</option>
-                <option value="ipad">iPad</option>
-                <option value="altri">Altri dispositivi</option>
-              </select>
-            </div>
-            <div id="iphone-model-wrap">
-              <label for="device-model">Modello</label>
-              <select id="device-model" name="model"></select>
+            <div class="listino-toolbar__filters" aria-label="Filtri dispositivo">
+              <div class="device-picker">
+                <div class="device-picker__field">
+                  <label for="device-category">Dispositivo</label>
+                  <select id="device-category" name="category">
+                    <option value="iphone-recent">iPhone — modelli recenti</option>
+                    <option value="iphone-legacy">iPhone — modelli precedenti</option>
+                    <option value="ipad">iPad</option>
+                    <option value="altri">Altri dispositivi</option>
+                  </select>
+                </div>
+                <div id="iphone-model-wrap" class="device-picker__field">
+                  <label for="device-model">Modello</label>
+                  <select id="device-model" name="model"></select>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div id="iphone-table-panel">
+          <div id="iphone-table-panel" class="listino-panel">
+            <header class="listino-panel__head">
+              <h2 class="listino-panel__title">iPhone</h2>
+              <p class="listino-panel__sub">Prezzi per modello selezionato</p>
+            </header>
             <div class="price-table-wrap">
               <table class="price-table" aria-describedby="listino-note">
                 <thead>
                   <tr>
                     <th scope="col">Intervento</th>
-                    <th scope="col">Prezzo</th>
+                    <th scope="col" class="price-table__th-price">Prezzo</th>
                   </tr>
                 </thead>
                 <tbody id="price-tbody"></tbody>
               </table>
             </div>
+            <p id="iphone-recent-footnote" class="listino-footnote listino-footnote--inline" hidden>
+              Sul PDF: nota «Solo su ordinazione» per alcune lavorazioni o ricambi.
+            </p>
           </div>
 
-          <div id="ipad-panel" hidden>
+          <div id="ipad-panel" class="listino-panel" hidden>
+            <header class="listino-panel__head">
+              <h2 class="listino-panel__title">iPad</h2>
+              <p class="listino-panel__sub">Fasce e voci dal listino (indicative)</p>
+            </header>
             <div id="ipad-blocks" class="ipad-blocks"></div>
           </div>
 
-          <div id="altri-panel" hidden>
-            <h2 class="section-title section-title--small">Altri dispositivi</h2>
-            <div id="altri-body" class="section-intro"></div>
+          <div id="altri-panel" class="listino-panel listino-panel--altri" hidden>
+            <header class="listino-panel__head">
+              <h2 class="listino-panel__title">Altri dispositivi</h2>
+              <p class="listino-panel__sub">Preventivo in negozio dopo diagnosi</p>
+            </header>
+            <div id="altri-body" class="listino-altri-body"></div>
           </div>
 
-          <p id="listino-note" class="listino-footnote"></p>
+          <p id="listino-note" class="listino-footnote listino-disclaimer"></p>
         </div>
       </section>
     </main>
