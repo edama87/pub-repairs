@@ -1,7 +1,7 @@
 {
   "listinoMeta": {
     "titolo": "Listino Aprile 2026",
-    "disclaimer": "Importi trascritti dal listino interno; la conferma avviene sempre in negozio dopo la diagnosi gratuita. * = non da listino / solo su ordinazione."
+    "disclaimer": "Importi trascritti dal listino interno; la conferma avviene sempre in negozio dopo la diagnosi gratuita."
   },
   "iphoneLegacy": {
     "id": "iphone-legacy",
@@ -490,6 +490,6 @@
   },
   "altriDispositivi": {
     "title": "Altri dispositivi",
-    "body": "Tablet Android, smartphone non Apple, Mac e PC: diagnosi gratuita in negozio e preventivo dedicato. Il listino PDF Aprile 2026 copre principalmente gamma Apple iPhone/iPad."
+    "body": "Tablet Android, smartphone non Apple, Mac e PC: diagnosi gratuita in negozio e preventivo dedicato."
   }
 }
