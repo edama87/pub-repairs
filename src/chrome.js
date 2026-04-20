@@ -39,12 +39,110 @@ const siteInfo = {
     { label: 'Sabato', value: '9:00 – 13:00' },
     { label: 'Domenica e festivi', value: 'Chiuso' },
   ],
+  /**
+   * Minuti da mezzanotte (fuso Europe/Rome) per badge aperto/chiuso.
+   * Allineare a `hours`; domenica e festivi senza lista date = solo domenica chiusa.
+   */
+  openingSchedule: {
+    weekday: { start: 9 * 60, end: 19 * 60 },
+    saturday: { start: 9 * 60, end: 13 * 60 },
+  },
   social: [
     { label: 'Facebook', href: 'https://www.facebook.com/officinaephone' },
     { label: 'Instagram', href: 'https://www.instagram.com/officinaephone' },
     { label: 'TikTok', href: 'https://www.tiktok.com/@officinaephone' },
   ],
 };
+
+const ROME_WEEKDAY = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+/** Ora locale Italia (Abruzzo) per confronto con gli orari di apertura. */
+function getRomeWeekdayAndMinutes() {
+  const now = new Date();
+  const fmt = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Europe/Rome',
+    weekday: 'short',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
+  const parts = {};
+  for (const { type, value } of fmt.formatToParts(now)) {
+    if (type !== 'literal') parts[type] = value;
+  }
+  const wd = ROME_WEEKDAY[/** @type {keyof typeof ROME_WEEKDAY} */ (parts.weekday)];
+  const h = parseInt(parts.hour, 10);
+  const m = parseInt(parts.minute, 10);
+  if (Number.isNaN(h) || Number.isNaN(m) || wd === undefined) {
+    return { wd: undefined, minutesFromMidnight: 0 };
+  }
+  return { wd, minutesFromMidnight: h * 60 + m };
+}
+
+function isLaboratoryOpenNow() {
+  const { wd, minutesFromMidnight } = getRomeWeekdayAndMinutes();
+  if (wd === undefined) return false;
+  if (wd === 0) return false;
+  const { weekday, saturday } = siteInfo.openingSchedule;
+  if (wd === 6) {
+    return minutesFromMidnight >= saturday.start && minutesFromMidnight < saturday.end;
+  }
+  if (wd >= 1 && wd <= 5) {
+    return minutesFromMidnight >= weekday.start && minutesFromMidnight < weekday.end;
+  }
+  return false;
+}
+
+function hoursModalHtml() {
+  const rows = siteInfo.hours.map((h) => `<dt>${h.label}</dt><dd>${h.value}</dd>`).join('');
+  return `<dialog class="hours-modal" id="site-hours-dialog" aria-labelledby="hours-modal-title">
+    <div class="hours-modal__panel">
+      <button type="button" class="hours-modal__close" aria-label="Chiudi finestra orari">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <h2 id="hours-modal-title" class="hours-modal__title">Orari del laboratorio</h2>
+      <p class="hours-modal__intro">${siteInfo.hoursIntro}</p>
+      <dl class="hours-modal__list">${rows}</dl>
+      <p class="hours-modal__note">Orario di riferimento: Italia (Europe/Rome). Nei giorni festivi potrebbero applicarsi eccezioni: contattaci per conferma.</p>
+    </div>
+  </dialog>`;
+}
+
+function initHoursBadgeUi() {
+  if (document.getElementById('site-hours-dialog')) return;
+
+  document.body.insertAdjacentHTML('beforeend', hoursModalHtml());
+  const dialog = /** @type {HTMLDialogElement | null} */ (document.getElementById('site-hours-dialog'));
+  const badge = document.getElementById('hours-status-badge');
+  if (!dialog || !badge) return;
+
+  const syncBadge = () => {
+    const open = isLaboratoryOpenNow();
+    badge.classList.toggle('hours-badge--open', open);
+    badge.classList.toggle('hours-badge--closed', !open);
+    const label = badge.querySelector('.hours-badge__label');
+    if (label) label.textContent = open ? 'Aperto ora' : 'Chiuso ora';
+    badge.setAttribute(
+      'aria-label',
+      open
+        ? 'Laboratorio aperto in questo momento. Apri il dettaglio orari.'
+        : 'Laboratorio chiuso in questo momento. Apri il dettaglio orari.',
+    );
+  };
+
+  syncBadge();
+  setInterval(syncBadge, 60_000);
+
+  badge.addEventListener('click', () => {
+    if (!dialog.open) dialog.showModal();
+    badge.setAttribute('aria-expanded', 'true');
+  });
+  dialog.addEventListener('close', () => badge.setAttribute('aria-expanded', 'false'));
+  dialog.querySelector('.hours-modal__close')?.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+}
 
 function applyFavicon() {
   const link = document.querySelector('link[rel="icon"]');
@@ -202,12 +300,25 @@ export function mountChrome(active) {
       <a class="site-logo" href="${pageHref('index.html')}" aria-label="OfficinaePhone — Home">
         <img class="site-logo__img" src="${logoSrc}" alt="OfficinaePhone" width="320" height="64" decoding="async" />
       </a>
-      <nav class="site-header__nav" aria-label="Navigazione principale">
-        <a href="${pageHref('index.html')}"${active === 'home' ? ' aria-current="page"' : ''}>Home</a>
-        <a href="${pageHref('servizi.html')}"${active === 'servizi' ? ' aria-current="page"' : ''}>Servizi</a>
-        <a href="${pageHref('usati.html')}"${active === 'usati' ? ' aria-current="page"' : ''}>Usati</a>
-        <a href="${pageHref('contatti.html')}"${active === 'contatti' ? ' aria-current="page"' : ''}>Contatti</a>
-      </nav>
+      <div class="site-header__tools">
+        <button
+          type="button"
+          id="hours-status-badge"
+          class="hours-badge hours-badge--open"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="site-hours-dialog"
+        >
+          <span class="hours-badge__dot" aria-hidden="true"></span>
+          <span class="hours-badge__label">Aperto ora</span>
+        </button>
+        <nav class="site-header__nav" aria-label="Navigazione principale">
+          <a href="${pageHref('index.html')}"${active === 'home' ? ' aria-current="page"' : ''}>Home</a>
+          <a href="${pageHref('servizi.html')}"${active === 'servizi' ? ' aria-current="page"' : ''}>Servizi</a>
+          <a href="${pageHref('usati.html')}"${active === 'usati' ? ' aria-current="page"' : ''}>Usati</a>
+          <a href="${pageHref('contatti.html')}"${active === 'contatti' ? ' aria-current="page"' : ''}>Contatti</a>
+        </nav>
+      </div>
     </div>`;
 
   bottom.innerHTML = `
@@ -226,6 +337,7 @@ export function mountChrome(active) {
     </div>`;
 
   if (footer) footer.innerHTML = footerHtml();
+  initHoursBadgeUi();
 }
 
 export function setYear() {
