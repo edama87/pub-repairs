@@ -165,13 +165,47 @@
   opacity: 0.9;
 }
 
+.hero-landing {
+  max-width: 40rem;
+}
+
 .hero-with-bokeh h1 {
   margin-top: 0;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.75rem;
+  font-size: clamp(1.85rem, 4.2vw, 2.65rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: var(--color-text);
+  text-wrap: balance;
 }
 
 .hero-with-bokeh .lead {
-  margin-bottom: 1.2rem;
+  margin-bottom: 1.35rem;
+  font-size: clamp(1.02rem, 1.1vw + 0.9rem, 1.18rem);
+  line-height: 1.58;
+  max-width: 48ch;
+  color: color-mix(in srgb, var(--color-muted) 92%, var(--color-text));
+}
+
+/* Pannello leggero attorno ai CTA */
+.hero-with-bokeh .hero-cta--stack {
+  max-width: min(100%, 24.5rem);
+  padding: 0.85rem 0.9rem 0.95rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-border) 78%, var(--accent) 12%);
+  box-shadow:
+    0 12px 36px color-mix(in srgb, var(--color-text) 6%, transparent),
+    0 0 0 1px color-mix(in srgb, white 65%, transparent) inset;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+@media (max-width: 768px) {
+  .hero-with-bokeh .hero-cta--stack {
+    padding: 0.75rem 0.8rem 0.85rem;
+  }
 }
 
 /* Meno vuoto tra hero e sezione successiva */

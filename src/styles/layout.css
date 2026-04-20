@@ -284,6 +284,43 @@
   max-width: 62ch;
 }
 
+/* Home: sezione dispositivi con sfondo e accento superiore */
+.section--devices {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-bg) 65%, var(--color-surface)) 0%,
+    var(--color-bg) 72%
+  );
+  border-top: 1px solid color-mix(in srgb, var(--color-border) 85%, var(--accent) 6%);
+}
+
+.section--devices::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(140px, 28vw);
+  height: 3px;
+  border-radius: 0 0 999px 999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 65%, transparent),
+    transparent
+  );
+  opacity: 0.55;
+}
+
+.section--devices .section-title {
+  margin-bottom: 0.65rem;
+}
+
+.section--devices .section-intro {
+  margin-bottom: 1.75rem;
+}
+
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.12em;
@@ -363,7 +400,7 @@
 
 .service-grid {
   display: grid;
-  gap: 1rem;
+  gap: 1.1rem;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
@@ -371,9 +408,33 @@
   margin: 0;
   background: var(--color-surface);
   border-radius: var(--radius-md);
-  padding: 1.15rem 1.25rem;
+  padding: 1.2rem 1.3rem;
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-soft);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .service-teaser:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--accent) 24%, var(--color-border));
+    box-shadow:
+      0 16px 42px color-mix(in srgb, var(--color-text) 9%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-teaser {
+    transition: none;
+  }
+
+  .service-teaser:hover {
+    transform: none;
+  }
 }
 
 .service-teaser__head {
@@ -403,11 +464,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--accent) 14%, white);
-  color: #0c3dc2;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: linear-gradient(
+    155deg,
+    color-mix(in srgb, var(--accent) 22%, white) 0%,
+    color-mix(in srgb, var(--accent) 10%, white) 100%
+  );
+  color: color-mix(in srgb, var(--accent) 55%, #0f172a);
+  box-shadow:
+    0 4px 14px color-mix(in srgb, var(--accent) 18%, transparent),
+    0 0 0 1px color-mix(in srgb, white 70%, var(--accent) 15%) inset;
+}
+
+@media (hover: hover) {
+  .service-teaser:hover .service-teaser__icon {
+    box-shadow:
+      0 6px 18px color-mix(in srgb, var(--accent) 22%, transparent),
+      0 0 0 1px color-mix(in srgb, white 75%, var(--accent) 12%) inset;
+  }
 }
 
 .service-teaser__icon svg {
