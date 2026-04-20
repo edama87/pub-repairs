@@ -412,7 +412,7 @@
         ]
       }
     ],
-    "footnote": "** Solo su ordinazione (nota sul PDF originale)."
+    "footnote": "** Solo su ordinazione."
   },
   "ipadListino": {
     "id": "ipad",
@@ -444,7 +444,7 @@
       },
       {
         "titolo": "iPad 7a–9a gen · 6a–5a gen · 4a–1a gen",
-        "nota": "Fasce cumulative sul PDF (€ 149 / € 149 / € 99 / € 89 / € 49)",
+        "nota": "Fasce cumulative (€ 149 / € 149 / € 99 / € 89 / € 49)",
         "righe": [
           {
             "voce": "Fascia prezzo indicativa (ordine dal più recente al più datato nel foglio)",
