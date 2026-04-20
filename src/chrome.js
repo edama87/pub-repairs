@@ -237,7 +237,7 @@ function footerHtml() {
           </a>
           <p class="site-footer__addr">${siteInfo.addressLine}</p>
           <ul class="site-footer__contacts">
-            <li><a href="${siteInfo.mobileHref}">Mobile ${siteInfo.mobile}</a></li>
+            <li><a href="${siteInfo.mobileHref}">Chiama ora</a></li>
             <li><a href="${siteInfo.whatsappHref}" rel="noopener noreferrer" target="_blank">WhatsApp</a></li>
             <li><a href="${pageHref('contatti.html')}">Pagina contatti e mappa</a></li>
             <li><a href="${siteInfo.mapsHref}" rel="noopener noreferrer" target="_blank">Google Maps</a></li>
@@ -284,8 +284,7 @@ function contactsMainHtml() {
         <h2>OfficinaePhone</h2>
         <p class="contact-card__addr">${addr}</p>
         <p class="contact-card__phones">
-          <a href="${siteInfo.mobileHref}">Mobile ${siteInfo.mobile}</a><br />
-          <a href="${siteInfo.landlineHref}">${siteInfo.landlineDisplay}</a>
+          <a href="${siteInfo.mobileHref}">Tel. ${siteInfo.mobile}</a><br />
         </p>
         <p class="contact-card__actions">
           <a href="${siteInfo.whatsappHref}" rel="noopener noreferrer" target="_blank">WhatsApp</a>
