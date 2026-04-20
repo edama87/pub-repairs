@@ -5,13 +5,6 @@ import './styles/bokeh.css';
 import './styles/servizi.css';
 
 import { mountChrome, setYear } from './chrome.js';
-import {
-  listinoMeta,
-  iphoneLegacy,
-  iphoneRecent,
-  ipadListino,
-  altriDispositivi,
-} from './data/listino-aprile-2026.js';
 
 mountChrome('servizi');
 setYear();
@@ -22,14 +15,8 @@ const tbody = document.getElementById('price-tbody');
 const listinoNote = document.getElementById('listino-note');
 const ipadRoot = document.getElementById('ipad-blocks');
 
-if (listinoNote) {
-  listinoNote.textContent = listinoMeta.disclaimer;
-}
-
-const matrices = {
-  'iphone-legacy': iphoneLegacy,
-  'iphone-recent': iphoneRecent,
-};
+/** @type {Record<string, { models: string[], repairs: { label: string, prices: (number|null)[] }[] } | undefined>} */
+let matrices = {};
 
 function fillModels(catId) {
   if (!modelSelect) return;
@@ -77,7 +64,15 @@ function renderIphoneTable(catId, modelIndex) {
   }
 }
 
-function renderIpad() {
+function escapeHtml(s) {
+  return String(s)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;');
+}
+
+function renderIpad(ipadListino) {
   if (!ipadRoot) return;
   ipadRoot.innerHTML = ipadListino.blocks
     .map(
@@ -91,14 +86,6 @@ function renderIpad() {
     </article>`,
     )
     .join('');
-}
-
-function escapeHtml(s) {
-  return String(s)
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;');
 }
 
 function onCategoryChange() {
@@ -137,11 +124,48 @@ if (modelSelect) {
   modelSelect.addEventListener('change', onModelChange);
 }
 
-renderIpad();
-
-const altriEl = document.getElementById('altri-body');
-if (altriEl) {
-  altriEl.innerHTML = `<p>${escapeHtml(altriDispositivi.body)}</p>`;
+function setLoadingUi(loading) {
+  if (catSelect) catSelect.disabled = loading;
+  if (modelSelect) modelSelect.disabled = loading;
+  if (tbody && loading) {
+    tbody.innerHTML = '<tr><td colspan="2">Caricamento listino…</td></tr>';
+  }
 }
 
-onCategoryChange();
+function showListinoError(msg) {
+  if (listinoNote) listinoNote.textContent = msg;
+  if (tbody) tbody.innerHTML = '<tr><td colspan="2">Listino non disponibile al momento.</td></tr>';
+}
+
+async function loadListino() {
+  setLoadingUi(true);
+  const url = `${import.meta.env.BASE_URL}data/listino.json`;
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`${res.status}`);
+    const data = await res.json();
+    const { listinoMeta, iphoneLegacy, iphoneRecent, ipadListino, altriDispositivi } = data;
+
+    if (listinoNote) listinoNote.textContent = listinoMeta.disclaimer;
+    matrices = {
+      'iphone-legacy': iphoneLegacy,
+      'iphone-recent': iphoneRecent,
+    };
+    renderIpad(ipadListino);
+
+    const altriEl = document.getElementById('altri-body');
+    if (altriEl) {
+      altriEl.innerHTML = `<p>${escapeHtml(altriDispositivi.body)}</p>`;
+    }
+
+    setLoadingUi(false);
+    onCategoryChange();
+  } catch {
+    showListinoError(
+      'Impossibile caricare il listino. Ricarica la pagina o contattaci in negozio per i prezzi aggiornati.',
+    );
+    setLoadingUi(false);
+  }
+}
+
+loadListino();
