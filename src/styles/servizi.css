@@ -1,3 +1,46 @@
+.listino-search {
+  margin-bottom: 1.25rem;
+}
+
+.listino-search__label {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.listino-search__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: stretch;
+}
+
+.listino-search__row input[type='search'] {
+  flex: 1 1 12rem;
+  min-width: 0;
+  max-width: 420px;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--color-surface);
+}
+
+.listino-search__row .btn {
+  flex: 0 0 auto;
+  align-self: center;
+}
+
+.listino-search__status {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  min-height: 1.25em;
+}
+
 .device-picker {
   display: flex;
   flex-direction: column;

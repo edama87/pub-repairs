@@ -34,8 +34,23 @@
           <h1 id="servizi-title" class="section-title">Servizi e listino</h1>
           <p class="section-intro">
             Scegli il tipo di dispositivo e il modello per consultare i prezzi del
-            <strong>Listino Aprile 2026</strong> (PDF in laboratorio).
+            <strong>Listino Aprile 2026</strong>.
           </p>
+
+          <form class="listino-search" id="listino-search-form" role="search" aria-label="Cerca nel listino">
+            <label class="listino-search__label" for="listino-search-input">Cerca nel listino</label>
+            <div class="listino-search__row">
+              <input
+                type="search"
+                id="listino-search-input"
+                name="q"
+                autocomplete="off"
+                placeholder="Es. 15 Pro, Air, batteria…"
+              />
+              <button type="submit" class="btn btn--primary btn--small">Cerca</button>
+            </div>
+            <p id="listino-search-status" class="listino-search__status" role="status" aria-live="polite"></p>
+          </form>
 
           <div class="device-picker">
             <div>
