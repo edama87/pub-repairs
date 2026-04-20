@@ -25,8 +25,6 @@ const siteInfo = {
   addressLines: ADDRESS_LINES,
   mobile: '+39 333 290 9839',
   mobileHref: 'tel:+393332909839',
-  landlineDisplay: 'Tel. 0872 703236',
-  landlineHref: 'tel:+390872703236',
   whatsappHref: 'https://wa.me/393332909839',
   mapsHref: 'https://www.google.com/maps/search/?api=1&query=Officinaephone%20-%20riparazione%20smartphone%2C%20tablet%2C%20PC%20e%20MAC%20Atessa',
   /** Iframe mappa: derivato da `mapsHref` (stessa ricerca / luogo). */
