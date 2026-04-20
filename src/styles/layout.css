@@ -369,7 +369,7 @@
   height: 44px;
   border-radius: 12px;
   background: color-mix(in srgb, var(--accent) 14%, white);
-  color: #c2410c;
+  color: #0c3dc2;
 }
 
 .service-teaser__icon svg {
