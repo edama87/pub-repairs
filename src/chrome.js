@@ -40,6 +40,18 @@ const siteInfo = {
     { label: 'Domenica e festivi', value: 'Chiuso' },
   ],
   /**
+   * Un giorno per riga nel modal (wd: 0 = domenica … 6 = sabato). Allineare a `openingSchedule`.
+   */
+  hoursWeek: [
+    { wd: 1, value: '9:00 – 19:00' },
+    { wd: 2, value: '9:00 – 19:00' },
+    { wd: 3, value: '9:00 – 19:00' },
+    { wd: 4, value: '9:00 – 19:00' },
+    { wd: 5, value: '9:00 – 19:00' },
+    { wd: 6, value: '9:00 – 13:00' },
+    { wd: 0, value: 'Chiuso' },
+  ],
+  /**
    * Minuti da mezzanotte (fuso Europe/Rome) per badge aperto/chiuso.
    * Allineare a `hours`; domenica e festivi senza lista date = solo domenica chiusa.
    */
@@ -55,6 +67,11 @@ const siteInfo = {
 };
 
 const ROME_WEEKDAY = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+const WEEKDAY_IT_LONG = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
+
+/** Ordine di visualizzazione nel modal: lunedì → domenica. */
+const HOURS_MODAL_DAY_ORDER = [1, 2, 3, 4, 5, 6, 0];
 
 /** Ora locale Italia (Abruzzo) per confronto con gli orari di apertura. */
 function getRomeWeekdayAndMinutes() {
@@ -93,8 +110,31 @@ function isLaboratoryOpenNow() {
   return false;
 }
 
+function buildHoursModalRowsHtml() {
+  const todayWd = getRomeWeekdayAndMinutes().wd;
+  return HOURS_MODAL_DAY_ORDER.map((wd) => {
+    const item = siteInfo.hoursWeek.find((h) => h.wd === wd);
+    if (!item) return '';
+    const isToday = todayWd !== undefined && wd === todayWd;
+    const todayCls = isToday ? ' hours-modal__row--today' : '';
+    const ariaCur = isToday ? ' aria-current="true"' : '';
+    const todayPill = isToday ? '<span class="hours-modal__today-pill">Oggi</span>' : '';
+    return `<div class="hours-modal__row${todayCls}" data-wd="${wd}" role="listitem"${ariaCur}>
+      <div class="hours-modal__row-main">
+        <span class="hours-modal__day-name">${WEEKDAY_IT_LONG[wd]}</span>${todayPill}
+      </div>
+      <span class="hours-modal__time">${item.value}</span>
+    </div>`;
+  }).join('');
+}
+
+function refreshHoursModalRows() {
+  const list = document.querySelector('#site-hours-dialog .hours-modal__list');
+  if (list) list.innerHTML = buildHoursModalRowsHtml();
+}
+
 function hoursModalHtml() {
-  const rows = siteInfo.hours.map((h) => `<dt>${h.label}</dt><dd>${h.value}</dd>`).join('');
+  const rows = buildHoursModalRowsHtml();
   return `<dialog class="hours-modal" id="site-hours-dialog" aria-labelledby="hours-modal-title">
     <div class="hours-modal__panel">
       <button type="button" class="hours-modal__close" aria-label="Chiudi finestra orari">
@@ -102,7 +142,7 @@ function hoursModalHtml() {
       </button>
       <h2 id="hours-modal-title" class="hours-modal__title">Orari del laboratorio</h2>
       <p class="hours-modal__intro">${siteInfo.hoursIntro}</p>
-      <dl class="hours-modal__list">${rows}</dl>
+      <div class="hours-modal__list" role="list">${rows}</div>
       <p class="hours-modal__note">Orario di riferimento: Italia (Europe/Rome). Nei giorni festivi potrebbero applicarsi eccezioni: contattaci per conferma.</p>
     </div>
   </dialog>`;
@@ -128,6 +168,7 @@ function initHoursBadgeUi() {
         ? 'Laboratorio aperto in questo momento. Apri il dettaglio orari.'
         : 'Laboratorio chiuso in questo momento. Apri il dettaglio orari.',
     );
+    refreshHoursModalRows();
   };
 
   syncBadge();
@@ -135,6 +176,7 @@ function initHoursBadgeUi() {
 
   badge.addEventListener('click', () => {
     if (!dialog.open) dialog.showModal();
+    refreshHoursModalRows();
     badge.setAttribute('aria-expanded', 'true');
   });
   dialog.addEventListener('close', () => badge.setAttribute('aria-expanded', 'false'));
