@@ -1,0 +1,23 @@
+{
+  "intro": "Le opinioni pubbliche lasciate su Google dal profilo del laboratorio (aggiorna i testi in public/data/recensioni.json).",
+  "reviews": [
+    {
+      "author": "Cliente",
+      "rating": 5,
+      "text": "Sostituisci con una recensione reale copiata dalla scheda Google del negozio.",
+      "time": "Esempio"
+    },
+    {
+      "author": "Cliente",
+      "rating": 5,
+      "text": "Seconda recensione di esempio: servizio cordiale e tempi rispettati.",
+      "time": "Esempio"
+    },
+    {
+      "author": "Cliente",
+      "rating": 5,
+      "text": "Terza recensione di esempio: consigliato per riparazioni smartphone.",
+      "time": "Esempio"
+    }
+  ]
+}

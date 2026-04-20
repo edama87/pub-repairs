@@ -18,7 +18,7 @@ function mapsHrefToEmbedSrc(href) {
 }
 
 /** Dati comuni — aggiorna qui orari e testi se cambiano in negozio. */
-const siteInfo = {
+export const siteInfo = {
   /** Una riga (footer, meta). */
   addressLine: `${ADDRESS_LINES[0]} — ${ADDRESS_LINES[1]}, Abruzzo`,
   /** Righe indirizzo (pagina contatti). */
