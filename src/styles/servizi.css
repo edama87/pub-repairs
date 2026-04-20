@@ -239,11 +239,10 @@
   border-bottom: 0;
 }
 
-.price-table td:last-child {
-  text-align: right;
-}
-
+/* Allinea a destra solo la colonna prezzi — non usare td:last-child: con colspan=2
+   l’unica cella è comunque :last-child e finirebbe allineata come un prezzo. */
 .price-cell {
+  text-align: right;
   font-weight: 800;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
