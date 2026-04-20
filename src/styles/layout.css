@@ -306,6 +306,44 @@
   gap: 0.75rem;
 }
 
+/* Home / usati: CTA primario a tutta larghezza + due secondarie affiancate */
+.hero-cta--stack {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0.65rem;
+  max-width: min(100%, 26rem);
+}
+
+.hero-cta__primary {
+  width: 100%;
+  justify-content: center;
+  padding: 0.78rem 1.25rem;
+  font-size: 1rem;
+}
+
+.hero-cta__secondary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.hero-cta__secondary .btn {
+  width: 100%;
+  min-width: 0;
+  justify-content: center;
+  padding: 0.62rem 0.65rem;
+  font-size: 0.86rem;
+  line-height: 1.3;
+  text-align: center;
+}
+
+@media (max-width: 360px) {
+  .hero-cta__secondary {
+    grid-template-columns: 1fr;
+  }
+}
+
 .pill-list {
   list-style: none;
   padding: 0;
