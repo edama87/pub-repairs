@@ -195,10 +195,19 @@ function renderDeviceList(filterQuery = '') {
     ? devices.filter((d) => d.label.toLowerCase().includes(needle))
     : devices;
 
+  const imgFor = (d) => {
+    if (d.kind === 'iphone') return `${import.meta.env.BASE_URL}images/devices/iphone.svg`;
+    if (d.kind === 'ipad') return `${import.meta.env.BASE_URL}images/devices/ipad.svg`;
+    return `${import.meta.env.BASE_URL}images/devices/device.svg`;
+  };
+
   deviceListEl.innerHTML = filtered
     .map((d) => {
       const active = d.id === selectedDeviceId;
-      return `<li class="device-list__item${active ? ' device-list__item--active' : ''}" role="option" aria-selected="${active ? 'true' : 'false'}" tabindex="0" data-device-id="${escapeHtml(d.id)}">${escapeHtml(d.label)}</li>`;
+      return `<li class="device-list__item${active ? ' device-list__item--active' : ''}" role="option" aria-selected="${active ? 'true' : 'false'}" tabindex="0" data-device-id="${escapeHtml(d.id)}">
+        <img class="device-list__img" src="${imgFor(d)}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <span class="device-list__label">${escapeHtml(d.label)}</span>
+      </li>`;
     })
     .join('');
 
