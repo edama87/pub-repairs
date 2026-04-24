@@ -16,7 +16,12 @@ const searchForm = document.getElementById('listino-search-form');
 const searchInput = document.getElementById('listino-search-input');
 const searchStatus = document.getElementById('listino-search-status');
 const deviceListEl = document.getElementById('device-list');
-const selectedDeviceTitle = document.getElementById('selected-device-title');
+const listinoDialog = /** @type {HTMLDialogElement | null} */ (document.getElementById('listino-dialog'));
+const listinoDialogTitle = document.getElementById('listino-modal-title');
+const iphoneSection = document.getElementById('listino-modal-iphone');
+const ipadSection = document.getElementById('listino-modal-ipad');
+const altriSection = document.getElementById('listino-modal-altri');
+const dialogCloseBtn = listinoDialog?.querySelector?.('.listino-modal__close');
 
 /** @type {Record<string, { models: string[], repairs: { label: string, prices: (number|null)[] }[] } | undefined>} */
 let matrices = {};
@@ -42,14 +47,9 @@ function normalizeQuery(q) {
 }
 
 function syncPanelsForDeviceKind(kind) {
-  const tablePanel = document.getElementById('iphone-table-panel');
-  const ipadPanel = document.getElementById('ipad-panel');
-  const altriPanel = document.getElementById('altri-panel');
-  if (!tablePanel || !ipadPanel || !altriPanel) return;
-
-  tablePanel.hidden = kind !== 'iphone';
-  ipadPanel.hidden = kind !== 'ipad';
-  altriPanel.hidden = kind !== 'altri';
+  if (iphoneSection) iphoneSection.hidden = kind !== 'iphone';
+  if (ipadSection) ipadSection.hidden = kind !== 'ipad';
+  if (altriSection) altriSection.hidden = kind !== 'altri';
 }
 
 function formatPrice(n) {
@@ -171,23 +171,20 @@ function selectDevice(item) {
   setSelectedDeviceId(item.id);
   syncPanelsForDeviceKind(item.kind);
 
+  if (listinoDialogTitle) listinoDialogTitle.textContent = item.label;
+
   if (item.kind === 'iphone') {
-    if (selectedDeviceTitle) selectedDeviceTitle.textContent = item.label;
     renderIphoneTable(item.catId, String(item.modelIndex));
     setSearchStatus('');
-    return;
-  }
-
-  if (item.kind === 'ipad') {
-    if (selectedDeviceTitle) selectedDeviceTitle.textContent = 'iPad';
+  } else if (item.kind === 'ipad') {
     if (ipadListinoFull) renderIpad(ipadListinoFull, '');
     setSearchStatus('');
-    return;
+  } else if (item.kind === 'altri') {
+    setSearchStatus('');
   }
 
-  if (item.kind === 'altri') {
-    if (selectedDeviceTitle) selectedDeviceTitle.textContent = 'Altri dispositivi';
-    setSearchStatus('');
+  if (listinoDialog && !listinoDialog.open) {
+    listinoDialog.showModal();
   }
 }
 
@@ -251,6 +248,13 @@ if (searchInput) {
 }
 if (searchForm) {
   searchForm.addEventListener('submit', onSearchSubmit);
+}
+
+if (listinoDialog) {
+  dialogCloseBtn?.addEventListener('click', () => listinoDialog.close());
+  listinoDialog.addEventListener('click', (e) => {
+    if (e.target === listinoDialog) listinoDialog.close();
+  });
 }
 
 function setLoadingUi(loading) {

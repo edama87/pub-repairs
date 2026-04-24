@@ -179,6 +179,78 @@
   line-height: 1.4;
 }
 
+/* Modale listino */
+.listino-modal {
+  margin: auto;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-lg);
+  max-width: min(46rem, calc(100vw - 2rem));
+  width: 100%;
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-nav);
+}
+
+.listino-modal::backdrop {
+  background: rgba(28, 25, 23, 0.42);
+}
+
+.listino-modal__panel {
+  position: relative;
+  padding: 1.4rem 1.25rem 1.25rem;
+}
+
+@media (min-width: 520px) {
+  .listino-modal__panel {
+    padding: 1.6rem 1.6rem 1.4rem;
+  }
+}
+
+.listino-modal__close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.65rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+
+.listino-modal__close:hover {
+  background: color-mix(in srgb, var(--color-bg) 80%, var(--color-surface));
+  color: var(--color-text);
+}
+
+.listino-modal__close:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 45%, white);
+  outline-offset: 2px;
+}
+
+.listino-modal__title {
+  margin: 0 2.5rem 0.35rem 0;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.listino-modal__sub {
+  margin: 0 0 1.1rem;
+  font-size: 0.92rem;
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
+.listino-modal__section {
+  margin-top: 0.5rem;
+}
+
 /* (Rimossi i vecchi filtri dispositivo: select categoria/modello) */
 
 /* Pannelli risultati */

@@ -62,44 +62,54 @@
             <ul id="device-list" class="device-list" role="listbox" aria-label="Elenco dispositivi"></ul>
           </section>
 
-          <div id="iphone-table-panel" class="listino-panel">
-            <header class="listino-panel__head">
-              <h2 id="selected-device-title" class="listino-panel__title">iPhone</h2>
-              <p class="listino-panel__sub">Prezzi indicativi per il dispositivo selezionato</p>
-            </header>
-            <div class="price-table-wrap">
-              <table class="price-table" aria-describedby="listino-note">
-                <thead>
-                  <tr>
-                    <th scope="col">Intervento</th>
-                    <th scope="col" class="price-table__th-price">Prezzo</th>
-                  </tr>
-                </thead>
-                <tbody id="price-tbody"></tbody>
-              </table>
-            </div>
-          </div>
-
-          <div id="ipad-panel" class="listino-panel" hidden>
-            <header class="listino-panel__head">
-              <h2 class="listino-panel__title">iPad</h2>
-              <p class="listino-panel__sub">Fasce e voci dal listino (indicative)</p>
-            </header>
-            <div id="ipad-blocks" class="ipad-blocks"></div>
-          </div>
-
-          <div id="altri-panel" class="listino-panel listino-panel--altri" hidden>
-            <header class="listino-panel__head">
-              <h2 class="listino-panel__title">Altri dispositivi</h2>
-              <p class="listino-panel__sub">Preventivo in negozio dopo diagnosi</p>
-            </header>
-            <div id="altri-body" class="listino-altri-body"></div>
-          </div>
-
           <p id="listino-note" class="listino-footnote listino-disclaimer"></p>
         </div>
       </section>
     </main>
+
+    <dialog class="listino-modal" id="listino-dialog" aria-labelledby="listino-modal-title">
+      <div class="listino-modal__panel">
+        <button type="button" class="listino-modal__close" aria-label="Chiudi finestra prezzi">
+          <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            aria-hidden="true"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M18 6L6 18M6 6l12 12" />
+          </svg>
+        </button>
+
+        <h2 id="listino-modal-title" class="listino-modal__title">Prezzi</h2>
+        <p class="listino-modal__sub">Importi indicativi: conferma sempre in negozio dopo diagnosi.</p>
+
+        <div id="listino-modal-iphone" class="listino-modal__section" hidden>
+          <div class="price-table-wrap">
+            <table class="price-table">
+              <thead>
+                <tr>
+                  <th scope="col">Intervento</th>
+                  <th scope="col" class="price-table__th-price">Prezzo</th>
+                </tr>
+              </thead>
+              <tbody id="price-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="listino-modal-ipad" class="listino-modal__section" hidden>
+          <div id="ipad-blocks" class="ipad-blocks"></div>
+        </div>
+
+        <div id="listino-modal-altri" class="listino-modal__section" hidden>
+          <div id="altri-body" class="listino-altri-body"></div>
+        </div>
+      </div>
+    </dialog>
 
     <footer class="site-footer" id="site-footer"></footer>
 
