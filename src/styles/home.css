@@ -1,0 +1,204 @@
+/* Home — hero e sezioni ad alto impatto */
+
+.hero-modern {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 920px) {
+  .hero-modern {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 2.5rem;
+  }
+}
+
+.hero-modern__kicker {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.6rem;
+  align-items: center;
+  margin: 0 0 0.75rem;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 80%, transparent);
+  box-shadow: 0 10px 30px rgba(28, 25, 23, 0.06);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--color-muted);
+}
+
+.hero-pill strong {
+  color: var(--color-text);
+  font-weight: 900;
+}
+
+.hero-modern h1 {
+  margin: 0 0 0.85rem;
+  font-size: clamp(2rem, 4.6vw, 3.1rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+.hero-modern .lead {
+  font-size: clamp(1.05rem, 1.6vw, 1.18rem);
+  max-width: 56ch;
+}
+
+.hero-highlights {
+  margin: 1.15rem 0 1.25rem;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.55rem;
+}
+
+@media (min-width: 520px) {
+  .hero-highlights {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem 0.85rem;
+  }
+}
+
+.hero-highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 85%, transparent);
+  background: color-mix(in srgb, var(--color-surface) 82%, transparent);
+  box-shadow: var(--shadow-soft);
+  line-height: 1.35;
+  color: var(--color-muted);
+  font-weight: 650;
+}
+
+.hero-highlights svg {
+  flex: 0 0 auto;
+  margin-top: 0.1rem;
+  color: color-mix(in srgb, var(--accent) 70%, var(--color-muted));
+}
+
+.hero-media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  border: 1px solid color-mix(in srgb, var(--color-border) 78%, transparent);
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, var(--color-surface) 84%, var(--accent)) 0%,
+    var(--color-surface) 55%,
+    color-mix(in srgb, var(--color-bg) 65%, var(--color-surface)) 100%
+  );
+  box-shadow: var(--shadow-nav);
+  overflow: hidden;
+  min-height: 300px;
+}
+
+@media (min-width: 920px) {
+  .hero-media {
+    min-height: 420px;
+  }
+}
+
+.hero-media__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image: radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0);
+  background-size: 18px 18px;
+  color: var(--color-muted);
+}
+
+.hero-media__content {
+  position: relative;
+  height: 100%;
+  padding: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  align-content: center;
+}
+
+@media (min-width: 520px) {
+  .hero-media__content {
+    padding: 1.5rem;
+    gap: 1.1rem;
+  }
+}
+
+.device-shot {
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 78%, transparent);
+  background: color-mix(in srgb, var(--color-bg) 55%, var(--color-surface));
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 0.8rem;
+}
+
+.device-shot img {
+  width: min(180px, 100%);
+  height: auto;
+  display: block;
+  filter: saturate(1.02) contrast(1.02);
+}
+
+.device-shot--wide {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 1rem 1.1rem;
+}
+
+.device-shot__text {
+  margin: 0;
+  color: var(--color-muted);
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.device-shot__text strong {
+  color: var(--color-text);
+  font-weight: 900;
+}
+
+.device-shot__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--color-border));
+  background: color-mix(in srgb, var(--accent) 10%, var(--color-surface));
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--accent) 75%, var(--color-muted));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .device-shot {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .device-shot:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 16px 44px color-mix(in srgb, var(--color-text) 10%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--accent) 10%, transparent);
+  }
+}
+

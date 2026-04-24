@@ -2,6 +2,7 @@ import './styles/base.css';
 import './styles/layout.css';
 import './styles/components.css';
 import './styles/bokeh.css';
+import './styles/home.css';
 import './styles/reviews.css';
 
 import { mountChrome, setYear, siteInfo } from './chrome.js';
