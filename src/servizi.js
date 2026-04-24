@@ -345,11 +345,20 @@ function showListinoError(msg) {
 
 async function loadListino() {
   setLoadingUi(true);
-  const url = `${import.meta.env.BASE_URL}data/listino.json`;
+  const base = import.meta.env.BASE_URL;
+  const urlPhp = `${base}api/public/listino.php`;
+  const urlFallback = `${base}data/listino.json`;
   try {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) throw new Error(`${res.status}`);
-    const data = await res.json();
+    let data = null;
+    try {
+      const res = await fetch(urlPhp, { cache: 'no-store' });
+      if (!res.ok) throw new Error(`${res.status}`);
+      data = await res.json();
+    } catch {
+      const res2 = await fetch(urlFallback, { cache: 'no-store' });
+      if (!res2.ok) throw new Error(`${res2.status}`);
+      data = await res2.json();
+    }
     const { listinoMeta, iphoneLegacy, iphoneRecent, ipadListino, altriDispositivi } = data;
 
     if (listinoNote) listinoNote.textContent = listinoMeta.disclaimer;
