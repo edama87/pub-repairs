@@ -299,11 +299,10 @@ async function loadListino() {
     }
 
     devices = buildDevices();
-    selectedDeviceId = devices[0]?.id ?? null;
+    selectedDeviceId = null;
     renderDeviceList('');
-    if (selectedDeviceId) {
-      const first = devices.find((d) => d.id === selectedDeviceId);
-      selectDevice(first);
+    if (tbody) {
+      tbody.innerHTML = '<tr><td colspan="2">Seleziona un dispositivo per vedere i prezzi.</td></tr>';
     }
 
     setLoadingUi(false);
