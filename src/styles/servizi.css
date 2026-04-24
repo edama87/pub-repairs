@@ -255,16 +255,40 @@
 }
 
 .listino-modal__title {
-  margin: 0 2.5rem 0.35rem 0;
+  margin: 0;
   font-size: 1.25rem;
   letter-spacing: -0.02em;
 }
 
 .listino-modal__sub {
-  margin: 0 0 1.1rem;
+  margin: 0.25rem 0 0;
   font-size: 0.92rem;
   color: var(--color-muted);
   line-height: 1.45;
+}
+
+.listino-modal__head {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 0.95rem;
+  align-items: center;
+  margin: 0 2.5rem 1.1rem 0;
+}
+
+.listino-modal__img {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 80%, transparent);
+  background: color-mix(in srgb, var(--color-bg) 55%, var(--color-surface));
+  color: color-mix(in srgb, var(--color-muted) 65%, var(--accent));
+  padding: 10px;
+  box-sizing: border-box;
+  object-fit: contain;
+}
+
+.listino-modal__titles {
+  min-width: 0;
 }
 
 .listino-modal__section {
