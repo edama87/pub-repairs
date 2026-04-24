@@ -219,8 +219,12 @@ function setSelectedDeviceId(id) {
 
 function selectDevice(item) {
   if (!item) return;
-  setSelectedDeviceId(item.id);
-  syncPanelsForDeviceKind(item.kind);
+  // Apri prima la modale: evita il flash del "selezionato" dietro al backdrop.
+  if (listinoDialog && !listinoDialog.open) {
+    listinoDialog.showModal();
+    // Focus immediato sul bottone di chiusura per evitare focus-ring sulla card.
+    requestAnimationFrame(() => dialogCloseBtn?.focus?.());
+  }
 
   if (listinoDialogTitle) listinoDialogTitle.textContent = item.label;
   if (listinoDialogImg) {
@@ -232,6 +236,7 @@ function selectDevice(item) {
     };
   }
 
+  syncPanelsForDeviceKind(item.kind);
   if (item.kind === 'iphone') {
     renderIphoneTable(item.catId, String(item.modelIndex));
     setSearchStatus('');
@@ -242,9 +247,8 @@ function selectDevice(item) {
     setSearchStatus('');
   }
 
-  if (listinoDialog && !listinoDialog.open) {
-    listinoDialog.showModal();
-  }
+  // Marca selezionato dopo l'apertura per eliminare l'effetto "flash".
+  requestAnimationFrame(() => setSelectedDeviceId(item.id));
 }
 
 function renderDeviceList(filterQuery = '') {
