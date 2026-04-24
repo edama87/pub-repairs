@@ -16,6 +16,7 @@ const searchForm = document.getElementById('listino-search-form');
 const searchInput = document.getElementById('listino-search-input');
 const searchStatus = document.getElementById('listino-search-status');
 const deviceListEl = document.getElementById('device-list');
+const deviceListLoading = document.getElementById('device-list-loading');
 const listinoDialog = /** @type {HTMLDialogElement | null} */ (document.getElementById('listino-dialog'));
 const listinoDialogTitle = document.getElementById('listino-modal-title');
 const listinoDialogImg = /** @type {HTMLImageElement | null} */ (document.getElementById('listino-modal-img'));
@@ -331,6 +332,9 @@ function setLoadingUi(loading) {
   }
   if (deviceListEl) {
     deviceListEl.setAttribute('aria-busy', loading ? 'true' : 'false');
+  }
+  if (deviceListLoading) {
+    deviceListLoading.hidden = !loading;
   }
 }
 
