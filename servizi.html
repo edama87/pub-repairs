@@ -39,7 +39,7 @@
           </p>
 
           <div class="listino-toolbar">
-            <form class="listino-search" id="listino-search-form" role="search" aria-label="Cerca nel listino">
+            <form class="listino-search" id="listino-search-form" role="search" aria-label="Cerca dispositivi">
               <label class="listino-search__label" for="listino-search-input">Cerca nel listino</label>
               <div class="listino-search__row">
                 <input
@@ -47,36 +47,25 @@
                   id="listino-search-input"
                   name="q"
                   autocomplete="off"
-                  placeholder="Es. 15 Pro, Air, batteria…"
+                  placeholder="Cerca un dispositivo… (es. 15 Pro, 11, iPad)"
                 />
-                <button type="submit" class="btn btn--primary btn--small">Cerca</button>
               </div>
               <p id="listino-search-status" class="listino-search__status" role="status" aria-live="polite"></p>
             </form>
-
-            <div class="listino-toolbar__filters" aria-label="Filtri dispositivo">
-              <div class="device-picker">
-                <div class="device-picker__field">
-                  <label for="device-category">Dispositivo</label>
-                  <select id="device-category" name="category">
-                    <option value="iphone-recent">iPhone — modelli recenti</option>
-                    <option value="iphone-legacy">iPhone — modelli precedenti</option>
-                    <option value="ipad">iPad</option>
-                    <option value="altri">Altri dispositivi</option>
-                  </select>
-                </div>
-                <div id="iphone-model-wrap" class="device-picker__field">
-                  <label for="device-model">Modello</label>
-                  <select id="device-model" name="model"></select>
-                </div>
-              </div>
-            </div>
           </div>
+
+          <section class="device-list-panel" aria-labelledby="device-list-title">
+            <header class="device-list-panel__head">
+              <h2 id="device-list-title" class="device-list-panel__title">Dispositivi</h2>
+              <p class="device-list-panel__sub">Seleziona un dispositivo per vedere i dettagli.</p>
+            </header>
+            <ul id="device-list" class="device-list" role="listbox" aria-label="Elenco dispositivi"></ul>
+          </section>
 
           <div id="iphone-table-panel" class="listino-panel">
             <header class="listino-panel__head">
-              <h2 class="listino-panel__title">iPhone</h2>
-              <p class="listino-panel__sub">Prezzi per modello selezionato</p>
+              <h2 id="selected-device-title" class="listino-panel__title">iPhone</h2>
+              <p class="listino-panel__sub">Prezzi indicativi per il dispositivo selezionato</p>
             </header>
             <div class="price-table-wrap">
               <table class="price-table" aria-describedby="listino-note">
