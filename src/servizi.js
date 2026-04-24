@@ -195,17 +195,60 @@ function renderDeviceList(filterQuery = '') {
     ? devices.filter((d) => d.label.toLowerCase().includes(needle))
     : devices;
 
+  const base = import.meta.env.BASE_URL;
   const imgFor = (d) => {
-    if (d.kind === 'iphone') return `${import.meta.env.BASE_URL}images/devices/iphone.svg`;
-    if (d.kind === 'ipad') return `${import.meta.env.BASE_URL}images/devices/ipad.svg`;
-    return `${import.meta.env.BASE_URL}images/devices/device.svg`;
+    if (d.kind === 'ipad') return `${base}images/devices/models/iPad.png`;
+    if (d.kind === 'altri') return `${base}images/devices/models/samsung.png`;
+    if (d.kind !== 'iphone') return `${base}images/devices/device.svg`;
+
+    const label = String(d.label);
+    const m = label.match(/^iPhone\s+(\d+)(?:\s+(Pro Max|Pro|Plus|mini))?/i);
+    if (m) {
+      const num = m[1];
+      const variant = (m[2] || '').toLowerCase();
+      const variantSlug =
+        variant === 'pro max'
+          ? 'pro-max'
+          : variant === 'pro'
+            ? 'pro'
+            : variant === 'plus'
+              ? 'plus'
+              : variant === 'mini'
+                ? 'mini'
+                : '';
+      if (num === '12' && label.includes('/')) {
+        return `${base}images/devices/models/iphone-12.png`;
+      }
+      return `${base}images/devices/models/iphone-${num}${variantSlug ? `-${variantSlug}` : ''}.png`;
+    }
+
+    if (/^iPhone\s+SE\b/i.test(label)) {
+      if (/\b2022\b/.test(label)) return `${base}images/devices/models/iphone-se-2022.png`;
+      return `${base}images/devices/models/iphone-se-2020.jpg`;
+    }
+
+    if (/^iPhone\s+11\b/i.test(label)) return `${base}images/devices/models/iphone-11-1.jpg`;
+    if (/^iPhone\s+XS Max\b/i.test(label)) return `${base}images/devices/models/iphone-xs-max.jpg`;
+    if (/^iPhone\s+XS\b/i.test(label)) return `${base}images/devices/models/iphone-xs.jpg`;
+    if (/^iPhone\s+XR\b/i.test(label)) return `${base}images/devices/models/iphone-xr.jpg`;
+    if (/^iPhone\s+X\b/i.test(label)) return `${base}images/devices/models/iphone-x.jpg`;
+    if (/^iPhone\s+8 Plus\b/i.test(label)) return `${base}images/devices/models/iphone-8-plus.jpg`;
+    if (/^iPhone\s+8\b/i.test(label)) return `${base}images/devices/models/iphone-8.jpg`;
+    if (/^iPhone\s+7 Plus\b/i.test(label)) return `${base}images/devices/models/iphone-7-plus.jpg`;
+    if (/^iPhone\s+7\b/i.test(label)) return `${base}images/devices/models/iphone-7.jpg`;
+    if (/^iPhone\s+6s Plus\b/i.test(label)) return `${base}images/devices/models/iphone-6s-plus.jpg`;
+    if (/^iPhone\s+6 Plus\b/i.test(label)) return `${base}images/devices/models/iphone-6-plus.jpg`;
+    if (/^iPhone\s+5c\b/i.test(label)) return `${base}images/devices/models/iphone-5C_1.jpg`;
+    if (/^iPhone\s+5\b/i.test(label)) return `${base}images/devices/models/iphone-5_2.jpg`;
+
+    return `${base}images/devices/models/iPhone.png`;
   };
 
   deviceListEl.innerHTML = filtered
     .map((d) => {
       const active = d.id === selectedDeviceId;
       return `<li class="device-list__item${active ? ' device-list__item--active' : ''}" role="option" aria-selected="${active ? 'true' : 'false'}" tabindex="0" data-device-id="${escapeHtml(d.id)}">
-        <img class="device-list__img" src="${imgFor(d)}" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+        <img class="device-list__img" src="${imgFor(d)}" alt="" aria-hidden="true" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${base}images/devices/device.svg';" />
         <span class="device-list__label">${escapeHtml(d.label)}</span>
       </li>`;
     })
