@@ -12,6 +12,7 @@ setYear();
 mountReviews();
 
 document.body.classList.add('page-home');
+syncScrolledHeader();
 
 function escapeHtml(s) {
   return String(s)
@@ -24,6 +25,14 @@ function escapeHtml(s) {
 function starsHtml(rating) {
   const n = Math.round(Math.min(5, Math.max(0, Number(rating) || 0)));
   return `<span class="reviews-stars" title="${n} su 5" aria-hidden="true">${'★'.repeat(n)}</span>`;
+}
+
+function syncScrolledHeader() {
+  const update = () => {
+    document.body.classList.toggle('page-scrolled', window.scrollY > 4);
+  };
+  update();
+  window.addEventListener('scroll', update, { passive: true });
 }
 
 async function mountReviews() {
