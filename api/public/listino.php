@@ -51,18 +51,23 @@ try {
   $repStmt = $pdo->prepare('SELECT id, `key`, label FROM repair_types WHERE scope = ? AND is_active = 1 ORDER BY sort_order ASC, label ASC');
 
   $buildIphoneMatrix = function (string $category) use ($pdo, $repStmt): array {
-    $devStmt = $pdo->prepare('SELECT id, label, short_label FROM devices WHERE category = ? AND is_active = 1 ORDER BY sort_order ASC, label ASC');
+    $devStmt = $pdo->prepare('SELECT id, label, short_label, thumb_path, image_path FROM devices WHERE category = ? AND is_active = 1 ORDER BY sort_order ASC, label ASC');
     $devStmt->execute([$category]);
     $devices = $devStmt->fetchAll();
 
     $models = [];
     $modelsMap = [];
     $deviceIds = [];
+    $deviceImages = [];
     foreach ($devices as $d) {
       $label = (string)$d['label'];
       $models[] = $label;
       $modelsMap[$label] = $d['short_label'] !== null && (string)$d['short_label'] !== '' ? (string)$d['short_label'] : $label;
       $deviceIds[] = (int)$d['id'];
+      $thumb = $d['thumb_path'] ?? null;
+      $img = $d['image_path'] ?? null;
+      if (is_string($thumb) && $thumb !== '') $deviceImages[$label] = $thumb;
+      else if (is_string($img) && $img !== '') $deviceImages[$label] = $img;
     }
 
     $repStmt->execute(['iphone']);
@@ -108,6 +113,7 @@ try {
       'models' => $models,
       'modelsMap' => (object)$modelsMap,
       'repairs' => $rows,
+      'deviceImages' => (object)$deviceImages,
     ];
   };
 

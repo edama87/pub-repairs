@@ -27,6 +27,9 @@ const dialogCloseBtn = listinoDialog?.querySelector?.('.listino-modal__close');
 /** @type {Record<string, { models: string[], repairs: { label: string, prices: (number|null)[] }[] } | undefined>} */
 let matrices = {};
 
+/** @type {Record<string, string> | null} */
+let deviceImages = null;
+
 /** Dati iPad completi (per filtri ricerca). */
 let ipadListinoFull = null;
 
@@ -54,6 +57,8 @@ function imageUrlForDevice(d) {
   if (d.kind !== 'iphone') return `${base}images/devices/device.svg`;
 
   const label = String(d.label);
+  const mapped = deviceImages?.[label];
+  if (mapped) return mapped;
   const m = label.match(/^iPhone\s+(\d+)(?:\s+(Pro Max|Pro|Plus|mini))?/i);
   if (m) {
     const num = m[1];
@@ -365,6 +370,10 @@ async function loadListino() {
     matrices = {
       'iphone-legacy': iphoneLegacy,
       'iphone-recent': iphoneRecent,
+    };
+    deviceImages = {
+      ...(iphoneLegacy?.deviceImages ?? {}),
+      ...(iphoneRecent?.deviceImages ?? {}),
     };
     ipadListinoFull = ipadListino;
     renderIpad(ipadListino);

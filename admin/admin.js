@@ -35,7 +35,8 @@ function apiUrl(path) {
 
 async function apiFetch(path, options = {}) {
   const headers = { ...(options.headers || {}) };
-  if (options.body && !headers['Content-Type']) headers['Content-Type'] = 'application/json';
+  const isForm = typeof FormData !== 'undefined' && options.body instanceof FormData;
+  if (options.body && !isForm && !headers['Content-Type']) headers['Content-Type'] = 'application/json';
   if (session.csrfToken) headers['X-CSRF-Token'] = session.csrfToken;
   const res = await fetch(apiUrl(path), { ...options, headers, credentials: 'include' });
   const json = await res.json().catch(() => null);
@@ -148,11 +149,16 @@ async function loadDevices() {
         <td>${escapeHtml(d.category)}</td>
         <td>${escapeHtml(d.label)}</td>
         <td>${escapeHtml(d.short_label ?? '')}</td>
+        <td>${d.thumb_path ? `<img class="thumb" src="${escapeHtml(d.thumb_path)}" alt="" />` : '—'}</td>
         <td>${escapeHtml(d.sort_order)}</td>
         <td>${pill(!!d.is_active)}</td>
         <td>
-          <button class="btn btn--ghost" data-action="editDevice" data-id="${d.id}">Modifica</button>
-          <button class="btn btn--ghost" data-action="delDevice" data-id="${d.id}">Elimina</button>
+          <div class="actions">
+            <button class="btn btn--ghost btn--tiny" data-action="editDevice" data-id="${d.id}">Modifica</button>
+            <button class="btn btn--ghost btn--tiny" data-action="uploadDeviceImg" data-id="${d.id}">Carica immagine</button>
+            <button class="btn btn--ghost btn--tiny" data-action="removeDeviceImg" data-id="${d.id}"${d.image_path ? '' : ' disabled'}>Rimuovi immagine</button>
+            <button class="btn btn--ghost btn--tiny" data-action="delDevice" data-id="${d.id}">Elimina</button>
+          </div>
         </td>
       </tr>`,
     )
@@ -252,6 +258,28 @@ function bindTableActions() {
             await loadDevices();
           },
         );
+      }
+
+      if (action === 'uploadDeviceImg') {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/jpeg,image/png,image/webp';
+        input.onchange = async () => {
+          const file = input.files?.[0];
+          if (!file) return;
+          const fd = new FormData();
+          fd.append('device_id', String(id));
+          fd.append('image', file);
+          await apiFetch('admin/device_image.php', { method: 'POST', body: fd });
+          await loadDevices();
+        };
+        input.click();
+      }
+
+      if (action === 'removeDeviceImg') {
+        if (!confirm('Rimuovere immagine del dispositivo?')) return;
+        await apiFetch(`admin/device_image.php?device_id=${id}`, { method: 'DELETE', body: JSON.stringify({}) });
+        await loadDevices();
       }
 
       if (action === 'editRepair') {

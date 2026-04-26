@@ -34,7 +34,7 @@ try {
     if ($activeOnly === '1') {
       $where[] = 'd.is_active = 1';
     }
-    $sql = 'SELECT d.id, d.category, d.label, d.short_label, d.sort_order, d.is_active, f.slug AS family_slug
+    $sql = 'SELECT d.id, d.category, d.label, d.short_label, d.image_path, d.thumb_path, d.sort_order, d.is_active, f.slug AS family_slug
             FROM devices d
             JOIN device_families f ON f.id = d.family_id';
     if ($where) $sql .= ' WHERE ' . implode(' AND ', $where);

@@ -71,6 +71,7 @@ declare(strict_types=1);
                   <th>Categoria</th>
                   <th>Label</th>
                   <th>Short</th>
+                  <th>Immagine</th>
                   <th>Ordine</th>
                   <th>Attivo</th>
                   <th></th>
