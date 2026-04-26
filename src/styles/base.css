@@ -1,11 +1,15 @@
 :root {
+  /* Brand: arancione (legacy WP / theme-color), blu per link testuali */
   --color-bg: #f6f4f1;
   --color-surface: #ffffff;
   --color-text: #1c1917;
   --color-muted: #57534e;
   --color-border: #e7e5e4;
-  --accent: #167cf9;
-  --accent-contrast: #fff;
+  --accent: #f97316;
+  --accent-contrast: #ffffff;
+  --accent-press: #ea580c;
+  --link: #167cf9;
+  --link-hover: #0b63d6;
   --whatsapp: #25d366;
   --radius-lg: 28px;
   --radius-md: 16px;
@@ -49,14 +53,18 @@ video {
 }
 
 a {
-  color: var(--accent);
+  color: var(--link);
   text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--link-hover);
 }
 
 a:focus-visible,
 button:focus-visible,
 summary:focus-visible {
-  outline: 3px solid color-mix(in srgb, var(--accent) 55%, white);
+  outline: 3px solid color-mix(in srgb, var(--accent) 50%, white);
   outline-offset: 2px;
 }
 

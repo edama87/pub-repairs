@@ -9,7 +9,15 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
  * In CI impostiamo VITE_GH_PAGES=1 così asset e chunk usano base corretta.
  */
 const ghPagesBase = '/pub-repairs/';
-const base = process.env.VITE_GH_PAGES === '1' ? ghPagesBase : '/';
+// Base configurabile per deploy su sottocartelle (es. Aruba /httpdocs/officinaephone/).
+// Esempio: VITE_BASE="/officinaephone/" npm run build
+const envBase = process.env.VITE_BASE;
+const normalizedEnvBase =
+  typeof envBase === 'string' && envBase.trim() !== ''
+    ? (envBase.startsWith('/') ? envBase : `/${envBase}`).replace(/\/?$/, '/')
+    : '/';
+
+const base = process.env.VITE_GH_PAGES === '1' ? ghPagesBase : normalizedEnvBase;
 
 export default defineConfig({
   base,

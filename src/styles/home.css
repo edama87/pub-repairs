@@ -202,3 +202,29 @@
   }
 }
 
+/* Mobile: meno altezze fisse, collage più compatto */
+@media (max-width: 919px) {
+  .hero-modern {
+    gap: 1.35rem;
+  }
+
+  .hero-media {
+    min-height: 0;
+  }
+
+  .hero-media__content {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .device-shot--wide {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .device-shot__badge {
+    justify-self: start;
+  }
+}
+
