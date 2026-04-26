@@ -5,5 +5,9 @@ dist/
 # Compound Engineering -- preferenze locali (non committare)
 .compound-engineering/*.local.yaml
 
+# Deploy Aruba (segreti locali)
+/scripts/deploy-aruba.env
+/api/_config.local.php
+
 # Listini / materiali locali (solo root repo — NON usare "data/" senza "/" o ignoreresti anche src/data/)
 /data/
