@@ -325,7 +325,10 @@ export function mountChrome(active) {
   const footer = document.getElementById('site-footer');
   if (!header || !bottom) return;
 
-  const logoSrc = `${baseUrl}images/logo/logo.png`;
+  const useDarkLogo = document.body.classList.contains('page-home');
+  const logoSrc = useDarkLogo
+    ? `${baseUrl}images/logo/logosusfondiscurixweb.png`
+    : `${baseUrl}images/logo/logo.png`;
   const navLink = (id, label, href, iconKey) => {
     const isActive = active === id;
     return `<a href="${href}" class="bottom-nav__item${isActive ? ' bottom-nav__item--active' : ''}" data-section="${id}"${isActive ? ' aria-current="page"' : ''}>

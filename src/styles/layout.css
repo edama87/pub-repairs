@@ -18,6 +18,37 @@
   border-bottom-color: transparent;
 }
 
+.page-home .site-header__inner {
+  background: rgba(0, 0, 0, 0.28);
+  border-radius: 999px;
+  padding: 0.55rem 0.85rem;
+  margin-top: 0.65rem;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+}
+
+.page-home .hours-badge {
+  background: rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.page-home .hours-badge:hover {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.page-home .site-header__nav a {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.page-home .site-header__nav a:hover {
+  color: #fff;
+}
+
+.page-home .site-logo__img {
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.35));
+}
+
 .page-home main {
   padding-top: 0;
 }
