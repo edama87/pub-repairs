@@ -7,6 +7,21 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+/* Home: header trasparente sopra la hero dark */
+.page-home .site-header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+
+.page-home main {
+  padding-top: 0;
+}
+
 .site-header__inner {
   max-width: var(--maxw);
   margin: 0 auto;

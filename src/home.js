@@ -11,6 +11,8 @@ mountChrome('home');
 setYear();
 mountReviews();
 
+document.body.classList.add('page-home');
+
 function escapeHtml(s) {
   return String(s)
     .replaceAll('&', '&amp;')
