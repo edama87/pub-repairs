@@ -19,17 +19,24 @@
 }
 
 .page-home .site-header__inner {
-  max-width: none;
-  margin: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.28);
-  border-radius: 0;
-  padding: 0.65rem 1.25rem;
-  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+  /* Mantieni la distribuzione “centrata” come nelle altre pagine */
+  max-width: var(--maxw);
+  margin: 0 auto;
+  width: auto;
+  padding: 0.75rem 1.25rem;
+}
+
+.page-home .site-header {
+  /* Barra full-width sopra la hero */
   transition: background 0.18s ease, box-shadow 0.18s ease;
 }
 
-.page-home.page-scrolled .site-header__inner {
+.page-home .site-header {
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+}
+
+.page-home.page-scrolled .site-header {
   background: rgba(0, 0, 0, 0.62);
   box-shadow: 0 14px 42px rgba(0, 0, 0, 0.42);
 }
@@ -37,6 +44,14 @@
 .page-home.page-scrolled .hours-badge {
   background: rgba(0, 0, 0, 0.5);
   border-color: rgba(255, 255, 255, 0.28);
+}
+
+.page-home .site-header__tools {
+  gap: 0.75rem 1.35rem;
+}
+
+.page-home .site-header__nav {
+  gap: 1.05rem;
 }
 
 .page-home .hours-badge {
